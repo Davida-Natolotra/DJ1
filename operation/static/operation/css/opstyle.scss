@@ -3,9 +3,6 @@
     color: white;
     background-color: #616161;
   }
-  .card-body {
-
-  }
 }
 
 .box:hover {
@@ -13,10 +10,11 @@
         color: white;
         background-color: #D3234C;
     }
-
     border-color: #D3234C;
 }
-
+.bheader {
+  color:#D3234C;
+}
 .incomplete {
     .card-header {
         color: white;

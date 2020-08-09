@@ -4,28 +4,28 @@ from .models import Operation
 from compagnie.models import Compagnie
 
 class dedouannementForm(ModelForm):
-    Date_BAD = forms.DateField(label="Date BAD", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_BAD"}),required=False)
+    Date_BAD = forms.DateField(label="Date BAD", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_BAD"}),required=False)
 
-    Date_MICTSL = forms.DateField(label="Date", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_MICTSL"}),required=False)
+    Date_MICTSL = forms.DateField(label="Date", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_MICTSL"}),required=False)
 
-    DAU_Date = forms.DateField(label="Date DAU", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "DAU_Date"}),required=False)
+    DAU_Date = forms.DateField(label="Date DAU", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "DAU_Date"}),required=False)
 
-    Date_Liquidation = forms.DateField(label="Date de liquidation", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_Liquidation"}),required=False)
+    Date_Liquidation = forms.DateField(label="Date de liquidation", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_Liquidation"}),required=False)
 
-    OV_Date_Paiement = forms.DateField(label="Date de paiement", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "OV_Date_Paiement"}),required=False)
+    OV_Date_Paiement = forms.DateField(label="Date de paiement", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "OV_Date_Paiement"}),required=False)
 
-    Date_Chargement = forms.DateField(label="Date de chargement", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_Chargement"}),required=False)
+    Date_Chargement = forms.DateField(label="Date de chargement", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_Chargement"}),required=False)
 
-    Date_BS = forms.DateField(label="Date BS", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_BS"}),required=False)
+    Date_BS = forms.DateField(label="Date BS", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_BS"}),required=False)
 
-    Date_Livraison = forms.DateField(label="Date de départ pour livraison", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "Date_Livraison"}),required=False)
+    Date_Livraison = forms.DateField(label="Date de départ pour livraison", widget=forms.DateInput(attrs={'type':'date','class':'form-control','max': 'today', 'id': "Date_Livraison"}),required=False)
 
     def __init__(self,*args,**kwargs):
         super(dedouannementForm, self).__init__(*args, **kwargs)
 
         for name in self.fields.keys():
-            if name != "Date_BAD" and name != "Date_MICTSL" and name != "DAU_Date" amd name != "Date_Liquidation" and name != "OV_Date_Paiement" and name != "Date_Chargement" and name != "Date_BS" and name != "Date_Livraison":
-                self.fields[name].widget.attrs.update({'class':'form-control w3-margin-bottom'})
+            if name != "Date_BAD" and name != "Date_MICTSL" and name != "DAU_Date" and name != "Date_Liquidation" and name != "OV_Date_Paiement" and name != "Date_Chargement" and name != "Date_BS" and name != "Date_Livraison":
+                self.fields[name].widget.attrs.update({'class':'form-control'})
                 self.fields[name].required = False
 
         # label

@@ -110,7 +110,8 @@ class Operation(models.Model):
 
     #  MICTSL/SMMC
         # Type d'operations
-    MICTSL_SMMC = models.IntegerField(blank=True,null=True)
+    OPMIC = (('Debarquement','Debarquement'),('Embarquement','Embarquement'))
+    MICTSL_SMMC = models.CharField(blank=True,null=True,max_length=20,choices=OPMIC)
     Date_MICTSL = models.DateField(auto_now=False,null=True)
     Montant_MICTSL = models.IntegerField(blank=True,null=True)
 

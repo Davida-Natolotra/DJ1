@@ -2,12 +2,17 @@
   color: white;
   background-color: #616161;
 }
+
 .box:hover {
   border-color: #D3234C;
 }
 .box:hover .card-header {
   color: white;
   background-color: #D3234C;
+}
+
+.bheader {
+  color: #D3234C;
 }
 
 .incomplete .card-header {

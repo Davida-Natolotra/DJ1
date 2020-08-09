@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core.files.storage import FileSystemStorage
+
+from operation.dedouannementform import dedouannementForm
 from operation.models import Operation
 from operation.forms import preparationForm
 from operation.receptionForm import ReceptionForm
 from exportateur.models import Exportateur
 from importateur.models import Importateur
+from compagnie.models import Compagnie
 
 # Create your views here.
 def indexOperation(request):
@@ -80,3 +83,18 @@ def ImportateurData(request):
         DomBanque = Importateur.objects.get(nom=ImportateurName).banque
         print("ImportateurIdBSC = ",ImportateurIdBSC)
         return JsonResponse({"ImportateurIdBSC":ImportateurIdBSC,'DomBanque':DomBanque},status=200)
+
+def CompanyData(request):
+    if request.is_ajax and request.method == 'GET':
+        CompanyName = request.GET.get("CompanyName",None)
+        print("CompanyName = ",CompanyName)
+        adresseTana = Compagnie.objects.get(nomCompagnie=CompanyName).adresseTana
+        print("adresseTana = ",adresseTana)
+        adresseTamatave = Compagnie.objects.get(nomCompagnie=CompanyName).adresseTamatave
+        print("adresseTamatave = ",adresseTamatave)
+        email1 = Compagnie.objects.get(nomCompagnie=CompanyName).email1
+        email2 = Compagnie.objects.get(nomCompagnie=CompanyName).email2
+        email3 = Compagnie.objects.get(nomCompagnie=CompanyName).email3
+        contact = Compagnie.objects.get(nomCompagnie=CompanyName).contact
+
+        return JsonResponse({"adresseTana":adresseTana,'adresseTamatave':adresseTamatave,'email1':email1,'email2':email2,'email3':email3,'contact':contact},status=200)

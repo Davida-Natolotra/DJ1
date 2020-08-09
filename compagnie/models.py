@@ -9,3 +9,6 @@ class Compagnie(models.Model):
     email2 = models.EmailField()
     email3 = models.EmailField()
     contact = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.nomCompagnie
