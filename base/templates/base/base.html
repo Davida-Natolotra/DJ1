@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base project</title>
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'base/css/w3.css' %}">
+    </head>
+
+<body class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
+
+            <a class="navbar-brand" href="/myapp/">MySite</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/myapp/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/flower/create">Create flower</a>
+                    </li>
+                </ul>
+            </div>
+
+    </nav>
+
+    <main class="container" id="content">
+<br class="w3-margin-bottom">
+        {% block content %}
+
+        {% endblock content %}
+
+    </main>
+
+    <footer class="footer w3-bottom">
+        <div class="container justify-content-center">
+            <span class="text-muted">
+                Base project for the <a href="#" target="_blank">Test</a>
+            </span>
+        </div>
+    </footer>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="{% static 'base/js/jquery-3.3.1.min.js'%}">
+    </script>
+    <script src="{% static 'base/js/popper.min.js'%}">
+    </script> <script src="{% static 'base/js/bootstrap.min.js'%}">
+    </script>
+    {% block js %}
+
+    {% endblock js %}
+</body>
+
+</html>

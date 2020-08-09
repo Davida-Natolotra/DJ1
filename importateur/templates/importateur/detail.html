@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">{{ flower.title }}</h1>
+            <div class="row">
+                <img src="{{flower.image.url}}" alt="" class="col">
+                <div class="lead col">{{flower.description }}</div>
+            </div>
+            <h6 class="w3-right"><span>Created in </span>{{flower.datepick}}</h6>
+
+        </div><br>
+        <a href="/" class="btn btn-info w3-margin-left">Back</a>
+
+    </div>
+    <br><br>
+{% endblock content %}
+    

@@ -1,0 +1,64 @@
+{% extends 'base/main.html'%}
+
+{% block content %}
+{% load humanize %}
+<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Caisse Tamatave</h1>
+<hr>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-3" style="max-height:60vh">
+      {{ form }}
+    </div>
+    <hr class="mb-3">
+
+  </div>
+  <div class="row justify-content-center">
+    <div class=""><br>
+      <a href="/caisseTamatave/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+      <button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+
+    </div>
+  </div>
+</form>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content  w3-green">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <span class="fas fa-check-square-o w3-xxxlarge"></span>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body w3-xlarge">
+        Enregistrement effectué!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        {# <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> #}
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("date").setAttribute("max", today);
+
+</script>
+{% endblock %}

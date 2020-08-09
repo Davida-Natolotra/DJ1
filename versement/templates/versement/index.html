@@ -1,0 +1,98 @@
+{% extends 'base/main.html'%}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
+<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Versement</h1>
+<hr>
+
+<br>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold w3-text-red">Table de recapitulation</h6>
+  </div>
+  <div class="card-body">
+    <div id="toolbar">
+      <button class="btn btn-secondary" onclick="window.location.href='/versement/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
+        data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
+        <thead class="thead-dark gray-dark">
+          <tr>
+            <th data-sortable="true">Date</th>
+            <th data-sortable="true">Référence</th>
+            <th data-sortable="true">Bénéficiaire</th>
+            <th data-sortable="true">Montant</th>
+            <th data-sortable="true">Remarque</th>
+            <th>Option</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in versements %}
+          <tr>
+            <td>{{i.date}}</td>
+            <td>{{i.reference}}</td>
+            <td>{{i.beneficiaire}}</td>
+            <td>{{i.montant}}</td>
+            <td>{{i.remarque | truncatechars:20}}</td>
+            <td>
+              <a href="{% url 'editVersement' pk=i.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Ed</a>
+
+              <a href="{% url 'deleteVersement' pk=i.pk %}" class="btn btn-danger"><i class="fas fa-remove w3-margin-right"></i>Sup</a>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% load static %}
+<!-- Core plugin JavaScript-->
+<script src="{% static 'base/js/popper.min.js'%}"></script>
+<script src="{% static 'base/js/bootstrap-table.min.js'%}"></script>
+
+<!-- Custom script for this page -->
+<script src="{% static 'base/js/bootstrap-table-fixed-columns.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-export.min.js' %}"></script>
+<script src="{% static 'base/js/tableExport.min.js' %}"></script>
+<script src="{% static 'base/js/jspdf.min.js'%}"></script>
+<script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+<script type="text/javascript">
+  $(function() {
+    $('#tableTest1').bootstrapTable({
+      height: $(window).height(),
+      onAll: function(name, args) {
+        fixleftwidth()
+      }
+    });
+
+    function fixleftwidth() {
+      setTimeout(function() {
+        var fixColumnTds = $(".fixed-table-body-columns tr:first-child td");
+        var fixNum = fixColumnTds.length;
+        var tableBody = $(".fixed-table-body tbody tr:first-child td");
+        for (var i = 0; i < fixNum; i++) {
+          fixColumnTds.eq(i).width(tableBody.eq(i).width())
+        }
+      }, 0)
+    }
+    fixleftwidth()
+    $(window).resize(function() {
+      $('#tableTest1').bootstrapTable('resetView');
+      fixleftwidth()
+    });
+  });
+</script>
+
+{% endblock %}

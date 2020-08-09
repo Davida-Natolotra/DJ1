@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="card-columns">
+    {% for flower in flowers %}
+    <div class="card w3-margin-bottom">
+        {% if flower.description == "" %}
+        <div class="card-body w3-amber">
+            <h5 class="card-title"><a href="{% url 'detail' flower.id  %}">{{ flower.title}}</a></h5>
+
+            
+            <p class="card-text">{{ flower.description | truncatechars:20 }}</p>
+            
+
+            
+
+            <img class="card-img-top" src="{{ flower.image.url }}" alt="Card image cap">
+            <div class="w3-margin-top">
+                <a href="{% url 'edit' pk=flower.pk %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete' pk=flower.pk %}" class="btn btn-danger">Delete</a>
+                
+                
+            </div>
+        </div>
+        {% else %}
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'detail' flower.id  %}">{{ flower.title}}</a></h5>
+
+            
+            <p class="card-text">{{ flower.description | truncatechars:20 }}</p>
+            
+
+            
+
+            <img class="card-img-top" src="{{ flower.image.url }}" alt="Card image cap">
+            <div class="w3-margin-top">
+                <a href="{% url 'edit' pk=flower.pk %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete' pk=flower.pk %}" class="btn btn-danger">Delete</a>
+                
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+    
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

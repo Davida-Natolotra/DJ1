@@ -1,0 +1,30 @@
+{% extends 'base/main.html'%}
+
+
+{% block content %}
+<div class="jumbotron w3-pale-red">
+  <div class="container justify-content-center">
+    <h1 class="w3-xxlarge">Confirmation de suppression</h1>
+    <hr class="w3-border-grey">
+    <div class="row">
+
+      <div class="lead col w3-text-red">
+        <h4>Ete-vous sure de supprimer {{ operation.Reference_Reception }} ?</h4>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <form action="{% url 'deleteOperation' operation.id %}" method="post" class="justify-content-center">
+        {% csrf_token %}
+        <input type="submit" value="Supprimer" class="btn btn-danger w3-margin-left">
+
+        <a href="/operation/" class="btn btn-info w3-margin-left">Annuler</a>
+      </form>
+    </div>
+  </div>
+
+
+
+</div>
+<br><br>
+{% endblock content %}

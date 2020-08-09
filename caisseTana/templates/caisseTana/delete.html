@@ -1,0 +1,28 @@
+{% extends 'base/main.html'%}
+
+
+{% block content %}
+    <div class="jumbotron w3-pale-red">
+        <div class="container justify-content-center">
+            <h3 class="w3-xxlarge">Confirmation de suppression</h3>
+            <hr class="w3-border-grey">
+            <div class="row">
+
+                <div class="lead col w3-text-red"><h4>Ete-vous sure de supprimer {{ caisse.libellee }} ?</h4></div>
+            </div>
+<br>
+            <div class="row justify-content-center">
+              <form action="{% url 'deleteCaisseTana' caisse.id %}" method="post" class="justify-content-center">
+                  {% csrf_token %}
+                  <input type="submit" value="Supprimer" class="btn btn-danger w3-margin-left">
+
+                  <a href="/caisseTana/" class="btn btn-info w3-margin-left">Annuler</a>
+              </form>
+            </div>
+        </div>
+
+
+
+    </div>
+    <br><br>
+{% endblock content %}

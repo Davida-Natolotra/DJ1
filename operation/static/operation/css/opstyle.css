@@ -1,0 +1,34 @@
+.box .card-header {
+  color: white;
+  background-color: #616161;
+}
+.box:hover {
+  border-color: #D3234C;
+}
+.box:hover .card-header {
+  color: white;
+  background-color: #D3234C;
+}
+
+.incomplete .card-header {
+  color: white;
+  background-color: #E1724A;
+}
+.incomplete .card-body {
+  color: black;
+  background-color: #FDF5E6;
+}
+
+.incomplete:hover {
+  border-color: #FF9800;
+}
+.incomplete:hover .card-header {
+  color: white;
+  background-color: #FF9800;
+}
+.incomplete:hover .card-body {
+  color: black;
+  background-color: #FDF5E6;
+}
+
+/*# sourceMappingURL=opstyle.css.map */

@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Delete confirmation</h1>
+            <div class="row">
+                <img src="{{flower.image.url}}" alt="" class="col">
+                <div class="lead col">Are you sure to delete {{ flower.title }} ?</div>
+            </div>
+            
+
+        </div><br>
+        <form action="{% url 'delete' flower.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-danger w3-margin-left">
+
+            <a href="/" class="btn btn-info w3-margin-left">Back</a>
+        </form>
+        
+
+    </div>
+    <br><br>
+{% endblock content %}
+    

@@ -1,0 +1,12 @@
+HReadLast(Solde,Solde_ID)
+FileToPage()
+
+cySolde is currency
+cySolde = 0
+//hread(Caisse_Tamatave)
+FOR ALL Caisse_Tana ON Caisse_TanaID
+	cySolde =cySolde + Caisse_Tana.Recette_Tana - Caisse_Tana.Depense_Tana
+END
+SoldeTotal is currency = Solde.Init_Tana + cySolde
+FSTC_Solde_actuel = SoldeTotal
+	
