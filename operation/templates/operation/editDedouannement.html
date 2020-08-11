@@ -23,192 +23,30 @@
 	{% csrf_token %}
 	<div class="row justify-content-center">
 		<div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:67vh">
-			<div class="card box shadow mb-4">
-				<div class="card-header">
-					<h4><i class="fas fa-chevron-down fa-fw"></i>Compagnie</h4>
-
-				</div>
-				<div class="card-body">
-					<div id="Details" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>Details</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="Compagnie" class="col control-label">{{form.Nom_Compagnie.label}}</label>
-								<div class=" col">
-									{{form.Nom_Compagnie}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_adresseTana" class="col control-label">Adresse Tana</label>
-								<div class=" col">
-									<input type="text" id="id_adresseTana" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_adresseTamatave" class="col control-label">Adresse Tamatave</label>
-								<div class=" col">
-									<input type="text" id="id_adresseTamatave" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_email1" class="col control-label">Email 1</label>
-								<div class=" col">
-									<input type="text" id="id_email1" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_email2" class="col control-label">Email 2</label>
-								<div class=" col">
-									<input type="text" id="id_email2" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_email3" class="col control-label">Email 3</label>
-								<div class=" col">
-									<input type="text" id="id_email3" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_contact" class="col control-label">Contact</label>
-								<div class=" col">
-									<input type="text" id="id_contact" class="form-control">
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div id="BAD" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>BAD</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="Date_BAD" class="col control-label">{{form.Date_BAD.label}}</label>
-								<div class=" col">
-									{{form.Date_BAD}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_MontantBAD" class="col control-label">{{form.BAD_Montant.label}}</label>
-								<div class=" col">
-									{{form.BAD_Montant}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_PJ" class="col control-label">{{form.BAD_PJ.label}}</label>
-								<div class=" col">
-									{{form.BAD_PJ}}
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div id="Overstay" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>Overstay</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="id_Overstay_Nb_jrs" class="col control-label">{{form.Overstay_Nb_jrs.label}}</label>
-								<div class=" col">
-									{{fform.Overstay_Nb_jrs}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Overstay_Montant" class="col control-label">{{form.Overstay_Montant.label}}</label>
-								<div class=" col">
-									{{form.Overstay_Montant}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Overstay_PJ" class="col control-label">{{form.Overstay_PJ.label}}</label>
-								<div class=" col">
-									{{form.Overstay_PJ}}
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div id="Surestaries" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>Surestaries</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="id_Surestaries_Nb_jrs" class="col control-label">{{form.Surestaries_Nb_jrs.label}}</label>
-								<div class=" col">
-									{{fform.Surestaries_Nb_jrs}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Surestaries_Montant" class="col control-label">{{form.Surestaries_Montant.label}}</label>
-								<div class=" col">
-									{{form.Surestaries_Montant}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Overstay_PJ" class="col control-label">{{form.Overstay_PJ.label}}</label>
-								<div class=" col">
-									{{form.Overstay_PJ}}
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="card box shadow mb-4">
-				<div class="card-header">
-					<h4><i class="fas fa-chevron-down fa-fw"></i>MICTSL/SMMC</h4>
-				</div>
-				<div class="card-body">
-					<div id="Operation_Type" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>Type de l'operation</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="id_MICTSL_SMMC" class="col control-label">{{form.MICTSL_SMMC.label}}</label>
-								<div class=" col">
-									{{form.MICTSL_SMMC}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="Date_MICTSL" class="col control-label">{{form.Date_MICTSL.label}}</label>
-								<div class=" col">
-									{{form.Date_MICTSL}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Montant_MICTSL" class="col control-label">{{form.Montant_MICTSL.label}}</label>
-								<div class=" col">
-									{{form.Montant_MICTSL}}
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div id="Magasinage" class="pint">
-						<h5 class="bheader"><i class="fas fa-caret-down fa-fw"></i>Magasinage</h5>
-						<div class="col bbody">
-							<div class="form-group">
-								<label for="id_Magasinage_Nb_Jrs" class="col control-label">{{form.Magasinage_Nb_Jrs.label}}</label>
-								<div class=" col">
-									{{form.Magasinage_Nb_Jrs}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Magasinage_Montant" class="col control-label">{{form.Magasinage_Montant.label}}</label>
-								<div class=" col">
-									{{form.Magasinage_Montant}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="id_Magasinage_PJ" class="col control-label">{{form.Magasinage_PJ.label}}</label>
-								<div class=" col">
-									{{form.Magasinage_PJ}}
-								</div>
-							</div>
-
-						</div>
-					</div>
+			{% include "operation/DedCompany.html" %}
+			{% include "operation/DedMICTSL.html" %}
+			{% include "operation/DedDouane.html" %}
+			{% include "operation/DedDepense.html" %}
+			<h3>Total</h3>
+			<hr>
+			<div class="form-group">
+				<label for="id_Total" class="col control-label">{{form.Total.label}}</label>
+				<div class=" col">
+					{{form.Total}}
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="row justify-content-center">
+		<div class=""><br>
+			<a href="/operation/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+
+			<button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+
+		</div>
+	</div>
+
 </form>
 {% endblock content %}
 {% block js %}
@@ -216,12 +54,37 @@
 
 
 <script>
+	// Date filter
+	$(document).ready(function() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd
+		}
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("Date_MICTSL").setAttribute("max", today);
+		document.getElementById("Date_Liquidation").setAttribute("max", today);
+		document.getElementById("Date_BS").setAttribute("max", today);
+		document.getElementById("Date_BAD").setAttribute("max", today);
+		document.getElementById("DAU_Date").setAttribute("max", today);
+		document.getElementById("OV_Date_Paiement").setAttribute("max", today);
+		document.getElementById("Date_Chargement").setAttribute("max", today);
+		document.getElementById("Date_Livraison").setAttribute("max", today);
+	})
+
+	// Ajax
 	$(document).ready(function() {
 		$('#Compagnie').change(function(e) {
 			e.preventDefault();
 			if ($(this).val() != "") {
 				var CompanyName = $("[value~=" + $(this).val() + "]").text();
-				console.log("CompanyName = "+CompanyName);
+				console.log("CompanyName = " + CompanyName);
 				$.ajax({
 					type: 'GET',
 					url: "{% url 'CompanyData'%}",
@@ -256,6 +119,57 @@
 			}
 		})
 
+		if ($("#Compagnie").val() != "") {
+			var CompanyName = $("[value~=" + $("#Compagnie").val() + "]").text();
+			console.log("CompanyName = " + CompanyName);
+			$.ajax({
+				type: 'GET',
+				url: "{% url 'CompanyData'%}",
+				data: {
+					"CompanyName": CompanyName,
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success: function(response) {
+					var adresseTana = response.adresseTana;
+					document.getElementById("id_adresseTana").value = adresseTana;
+
+					var adresseTamatave = response.adresseTamatave;
+					document.getElementById("id_adresseTamatave").value = adresseTamatave;
+
+					var email1 = response.email1;
+					document.getElementById("id_email1").value = email1;
+					var email2 = response.email2;
+					document.getElementById("id_email2").value = email2;
+					var email3 = response.email3;
+					document.getElementById("id_email3").value = email3;
+					var contact = response.contact;
+					document.getElementById("id_contact").value = contact;
+
+				},
+				error: function(response) {
+					console.log("ERROR" + response);
+				}
+			})
+		} else {
+			document.getElementById("id_adresseTana").value = "";
+			document.getElementById("id_adresseTamatave").value = "";
+			document.getElementById("id_email1").value = "";
+			document.getElementById("id_email2").value = "";
+			document.getElementById("id_email3").value = "";
+			document.getElementById("id_contact").value = "";
+		}
+	})
+
+	// OV default value
+	$(document).ready(function() {
+		if (!$("#id_OV_Banque").val()) {
+			console.log("No banque");
+			document.getElementById("id_OV_Banque").value = "BMOI Mateza Transit"
+		}
+		if (!$("#id_OV_Num_Compte").val()) {
+			console.log("No num compte");
+			document.getElementById("id_OV_Num_Compte").value = "00010 035659 201 01"
+		}
 	})
 </script>
 {% endblock js %}

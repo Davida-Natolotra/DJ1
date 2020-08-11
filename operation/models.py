@@ -81,7 +81,7 @@ class Operation(models.Model):
     Autres_Depense = models.IntegerField(null=True,blank=True)
 
     # Indicator notification
-    Prep_Full = models.BooleanField(blank=True,null=True)
+    Prep_Full = models.BooleanField(default=False)
 
 # Dedouannement
 #------------------------
@@ -126,16 +126,18 @@ class Operation(models.Model):
     DAU_Date = models.DateField(auto_now=False,null=True)
     DAU_Num = models.CharField(max_length=500,blank=True)
     DAU_Depense = models.IntegerField(blank=True,null=True)
-    Circuit = models.IntegerField(blank=True,null=True)
+    CIRCOP = (('vert','Vert'),('jaune','Jaune'),('rouge','Rouge'))
+    Circuit = models.CharField(blank=True,null=True,max_length=20,choices=CIRCOP)
     Date_Liquidation = models.DateField(auto_now=False,null=True)
     Liquidateur = models.CharField(blank=True,max_length=500)
     Resultat_Scan = models.CharField(blank=True,max_length=500)
     Resultat_Scan_PJ = models.FileField(blank=True,upload_to='scans')
     Resultat_Visite = models.FileField(blank=True,upload_to='visites')
     Droit_Compromis = models.IntegerField(blank=True,null=True)
-    DC_Mode_Paiement = models.IntegerField(blank=True,null=True)
+    MODEPAIE = (('Cash','Cash'),('Virement banquaire','Virement banquaire'),('Cheque','Cheque'),('Western Union','Western Union'),('MVola','MVola'))
+    DC_Mode_Paiement = models.CharField(blank=True,null=True,max_length=20,choices=MODEPAIE)
     Amende_Montant = models.IntegerField(blank=True,null=True)
-    Amende_Mode_Paiement = models.IntegerField(blank=True,null=True)
+    Amende_Mode_Paiement =  models.CharField(blank=True,null=True,max_length=20,choices=MODEPAIE)
 
         # OV
         #===================
@@ -143,7 +145,7 @@ class Operation(models.Model):
     OV_Montant = models.IntegerField(blank=True,null=True)
     OV_Date_Paiement = models.DateField(auto_now=False,null=True)
     OV_Banque = models.CharField(max_length=500,blank=True)
-    OV_Num_Compte = models.IntegerField(blank=True,null=True)
+    OV_Num_Compte = models.CharField(max_length=500,blank=True,null=True)
     OV_Depense = models.IntegerField(blank=True,null=True)
     OV_Docker = models.IntegerField(blank=True,null=True)
 

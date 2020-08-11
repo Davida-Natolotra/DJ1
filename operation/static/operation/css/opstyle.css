@@ -12,7 +12,7 @@
 }
 
 .bheader {
-  color: #D3234C;
+  color: #D3234C !important;
 }
 
 .incomplete .card-header {

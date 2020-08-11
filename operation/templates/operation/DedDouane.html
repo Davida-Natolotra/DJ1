@@ -1,0 +1,257 @@
+<div class="card box shadow mb-4">
+  <div class="card-header">
+    <h4><i class="fas fa-chevron-down fa-fw"></i>Douane</h4>
+  </div>
+  <div class="card-body">
+    <div id="DAU" class="pint">
+      <h5 class="bheader  w3-text-pink"><i class="fas fa-caret-down fa-fw"></i>DAU</h5>
+      <div class="col bbody">
+        <div class="form-group">
+          <label for="DAU_Date" class="col control-label">{{form.DAU_Date.label}}</label>
+          <div class=" col">
+            {{form.DAU_Date}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_DAU_Num" class="col control-label">{{form.DAU_Num.label}}</label>
+          <div class=" col">
+            {{form.DAU_Num}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_DAU_Depense" class="col control-label">{{form.DAU_Depense.label}}</label>
+          <div class=" col">
+            {{form.DAU_Depense}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Circuit" class="col control-label">{{form.Circuit.label}}</label>
+          <div class=" col">
+            {{form.Circuit}}
+          </div>
+          <div class="col-md-1 col-lg-1">
+            <p class="w3-padding" id="led"></p>
+          </div>
+        </div>
+        <div class="w3-padding-16 w3-pale-yellow" id="jaune">
+          <div class="form-group">
+            <label for="id_Resultat_Scan" class="col control-label">{{form.Resultat_Scan.label}}</label>
+            <div class=" col">
+              {{form.Resultat_Scan}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_Resultat_Scan_PJ" class="col control-label">{{form.Resultat_Scan_PJ.label}}</label>
+            <div class=" col">
+              {{form.Resultat_Scan_PJ}}
+            </div>
+          </div>
+        </div>
+        <div class="w3-padding-16 w3-pale-red" id="rouge">
+          <div class="form-group">
+            <label for="id_Resultat_Visite" class="col control-label">{{form.Resultat_Visite.label}}</label>
+            <div class=" col">
+              {{form.Resultat_Visite}}
+            </div>
+          </div><br>
+          <div class="col">
+            <h5 class="w3-text-red">Redressement</h5>
+            <hr class="w3-border-red">
+          </div>
+          <div class="form-group">
+            <label for="id_Droit_Compromis" class="col control-label">{{form.Droit_Compromis.label}}</label>
+            <div class=" col">
+              {{form.Droit_Compromis}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_DC_Mode_Paiement" class="col control-label">{{form.DC_Mode_Paiement.label}}</label>
+            <div class=" col">
+              {{form.DC_Mode_Paiement}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_Amende_Montant" class="col control-label">{{form.Amende_Montant.label}}</label>
+            <div class=" col">
+              {{form.Amende_Montant}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_Amende_Mode_Paiement" class="col control-label">{{form.Amende_Mode_Paiement.label}}</label>
+            <div class=" col">
+              {{form.Amende_Mode_Paiement}}
+            </div>
+          </div>
+        </div><br>
+        <div class="form-group">
+          <label for="Date_Liquidation" class="col control-label">{{form.Date_Liquidation.label}}</label>
+          <div class=" col">
+            {{form.Date_Liquidation}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Liquidateur" class="col control-label">{{form.Liquidateur.label}}</label>
+          <div class=" col">
+            {{form.Liquidateur}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="OV" class="pint">
+      <h5 class="bheader  w3-text-pink"><i class="fas fa-caret-down fa-fw"></i>OV</h5>
+      <div class="col bbody">
+        <div class="form-group">
+          <label for="id_OV_Num" class="col control-label">{{form.OV_Num.label}}</label>
+          <div class=" col">
+            {{form.OV_Num}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_OV_Montant" class="col control-label">{{form.OV_Montant.label}}</label>
+          <div class=" col">
+            {{form.OV_Montant}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="OV_Date_Paiement" class="col control-label">{{form.OV_Date_Paiement.label}}</label>
+          <div class=" col">
+            {{form.OV_Date_Paiement}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_OV_Banque" class="col control-label">{{form.OV_Banque.label}}</label>
+          <div class=" col">
+            {{form.OV_Banque}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_OV_Num_Compte" class="col control-label">{{form.OV_Num_Compte.label}}</label>
+          <div class=" col">
+            {{form.OV_Num_Compte}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_OV_Depense" class="col control-label">{{form.OV_Depense.label}}</label>
+          <div class=" col">
+            {{form.OV_Depense}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_OV_Docker" class="col control-label">{{form.OV_Docker.label}}</label>
+          <div class=" col">
+            {{form.OV_Docker}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="Chargement" class="pint">
+      <h5 class="bheader  w3-text-pink"><i class="fas fa-caret-down fa-fw"></i>Chargement</h5>
+      <div class="col bbody">
+        <div class="form-group">
+          <label for="Date_Chargement" class="col control-label">{{form.Date_Chargement.label}}</label>
+          <div class=" col">
+            {{form.Date_Chargement}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Num_Camion" class="col control-label">{{form.Num_Camion.label}}</label>
+          <div class=" col">
+            {{form.Num_Camion}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Num_Remorque" class="col control-label">{{form.Num_Remorque.label}}</label>
+          <div class=" col">
+            {{form.Num_Remorque}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Nom_Transporteur" class="col control-label">{{form.Nom_Transporteur.label}}</label>
+          <div class=" col">
+            {{form.Nom_Transporteur}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Nom_Chauffeur" class="col control-label">{{form.Nom_Chauffeur.label}}</label>
+          <div class=" col">
+            {{form.Nom_Chauffeur}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Tel_Chauffeur" class="col control-label">{{form.Tel_Chauffeur.label}}</label>
+          <div class=" col">
+            {{form.Tel_Chauffeur}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Num_Permis" class="col control-label">{{form.Num_Permis.label}}</label>
+          <div class=" col">
+            {{form.Num_Permis}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Lieu_Livraison" class="col control-label">{{form.Lieu_Livraison.label}}</label>
+          <div class=" col">
+            {{form.Lieu_Livraison}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Montant_Fret" class="col control-label">{{form.Montant_Fret.label}}</label>
+          <div class=" col">
+            {{form.Montant_Fret}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Immobilisation" class="col control-label">{{form.Immobilisation.label}}</label>
+          <div class=" col">
+            {{form.Immobilisation}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Autres_Motifs" class="col control-label">{{form.Autres_Motifs.label}}</label>
+          <div class=" col">
+            {{form.Autres_Motifs}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Autres_Montant" class="col control-label">{{form.Autres_Montant.label}}</label>
+          <div class=" col">
+            {{form.Autres_Montant}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="BS" class="pint">
+      <h5 class="bheader  w3-text-pink"><i class="fas fa-caret-down fa-fw"></i>Bon de sortie</h5>
+      <div class="col bbody">
+        <div class="form-group">
+          <label for="id_Num_BS" class="col control-label">{{form.Num_BS.label}}</label>
+          <div class=" col">
+            {{form.Num_BS}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Date_BS" class="col control-label">{{form.Date_BS.label}}</label>
+          <div class=" col">
+            {{form.Date_BS}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Date_Livraison" class="col control-label">{{form.Date_Livraison.label}}</label>
+          <div class=" col">
+            {{form.Date_Livraison}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_Remarque_General" class="col control-label">{{form.Remarque_General.label}}</label>
+          <div class=" col">
+            {{form.Remarque_General}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
