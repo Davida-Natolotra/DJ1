@@ -40,58 +40,6 @@ class PreparationForm(ModelForm):
 
     Fumigation_PJ = forms.FileField(label="PJ Fumigation", required=False, widget=forms.ClearableFileInput(attrs={'class':'form-control-file w3-margin-bottom'}))
 
-    # Exportateur_Name = forms.ModelChoiceField(queryset=...,label="Nom de l'exportateur",to_field_name="nom",widget= forms.ModelChoiceField(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    # BSC_ID_Exportateur = forms.CharField
-    #
-    # BSC_Num
-    #
-    # Importateur_Name
-    #
-    # BSC_ID_Importateur
-    #
-    # BSC_PJ
-    #
-    # BSC_Remarque
-    #
-    # BSC_Depense
-    #
-    # Dom_Num
-    #
-    # Dom_PJ
-    #
-    # Dom_Banque
-    #
-    # Dom_Num_Compte
-    #
-    # Dom_Depense
-    #
-    # OT_PJ
-    #
-    # Date_OT
-    #
-    # OT_Honoraire
-    #
-    # Autres_Num
-    #
-    # Champ_1
-    #
-    # Champ_2
-    #
-    # Champ_3
-    #
-    # Champ_4
-    #
-    # ch1_PJ
-    #
-    # ch2_PJ
-    #
-    # ch3_PJ
-    #
-    # ch4_PJ
-    #
-    # Autres_Depense
-
     class Meta():
         model = Operation
         fields = [

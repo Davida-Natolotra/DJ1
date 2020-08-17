@@ -180,5 +180,30 @@ class Operation(models.Model):
     #=========
     Total = models.IntegerField(blank=True,null=True)
 
+    # Facture
+    #----------
+    Facture_OT_Honoraire = models.IntegerField(blank=True,null=True)
+    Facture_Autres_Montant = models.IntegerField(blank=True,null=True)
+    Facture_BAD_Montant = models.IntegerField(blank=True,null=True)
+    Facture_Overstay_Montant = models.IntegerField(blank=True,null=True)
+    Facture_Surestaries_Montant = models.IntegerField(blank=True,null=True)
+    Facture_Debarquement = models.IntegerField(blank=True,null=True)
+    Facture_Magasinage_Montant = models.IntegerField(blank=True,null=True)
+    Facture_Droit_Compromis = models.IntegerField(blank=True,null=True)
+    Facture_Amende_Montant = models.IntegerField(blank=True,null=True)
+    Facture_OV_Montant = models.IntegerField(blank=True,null=True)
+    Facture_OV_Docker = models.IntegerField(blank=True,null=True)
+    Facture_Montant_Fret = models.IntegerField(blank=True,null=True)
+    Facture_Immobilisation = models.IntegerField(blank=True,null=True)
+    Facture_Num_Facture = models.CharField(max_length=50,blank=True)
+    Facture_Nom_Client = models.CharField(max_length=500,blank=True)
+    Facture_Adresse_Client = models.CharField(max_length=500,blank=True)
+    Facture_Contact_Client = models.CharField(max_length=500,blank=True)
+    Facture_email_client = models.EmailField(max_length=500,blank=True)
+    Facture_Date_Facture = models.DateField(auto_now=False,blank=True,null=True)
+    Facture_SousTotal = models.IntegerField(blank=True,null=True)
+    Tax = models.IntegerField(blank=True,null=True)
+    TotalFacture = models.FloatField(blank=True,null=True)
+
     def __str__(self):
         return self.Reference_Reception

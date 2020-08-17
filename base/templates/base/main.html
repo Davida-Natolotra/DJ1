@@ -22,16 +22,15 @@
   <link href="{% static '/base/css/v4-shims.min.css'%}" rel="stylesheet">
 
   {% comment %} <style>
-  #content {
-  background-image: url("{% static 'base/assets/BG_BW_Comp.jpg'%}");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: right bottom;
-  background-size:cover;
-  background-color: rgb(210,210,210);
-  background-blend-mode: lighten;
-}
-
+    #content {
+      background-image: url("{% static 'base/assets/BG_BW_Comp.jpg'%}");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: right bottom;
+      background-size: cover;
+      background-color: rgb(210, 210, 210);
+      background-blend-mode: lighten;
+    }
   </style> {% endcomment %}
 
 
@@ -119,10 +118,32 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static '/base/js/sb-admin-2.min.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var send = "Send"
+      $.ajax({
+        type: 'GET',
+        url: "{% url 'topbar'%}",
+        data: {
+          "send": send,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+          var notification = response.notification;
+          var counter = response.counter;
+          document.getElementById("msg").innerHTML = notification;
+          document.getElementById("notifbadge").innerHTML = counter;
+        },
+        error: function(response) {
+          console.log("ERROR" + response);
+        }
+      })
+    })
+  </script>
+  {% block js %}
 
-{% block js %}
+  {% endblock %}
 
-{% endblock %}
 </body>
 
 </html>

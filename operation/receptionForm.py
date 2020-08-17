@@ -6,11 +6,7 @@ class ReceptionForm(ModelForm):
     Date_Reception = forms.DateField(label="Date de reception", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateReception"}),required=False)
 
     # iterable
-    TYPE_CHOICES_OPERATION =(
-        ("1", "Importation"),
-        ("2", "Exportation"),
-    )
-    # type_Operation = forms.ChoiceField(label="Type d'operation", widget=forms.Select(attrs={'class':'form-control w3-margin-bottom'}),required=False)
+
 
     Reference_Reception = forms.IntegerField(label="Reference ID", widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom'}))
 
@@ -40,6 +36,13 @@ class ReceptionForm(ModelForm):
 
     Client = forms.CharField(label='Client',
     widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
+
+    def __init__(self,*args,**kwargs):
+        super(ReceptionForm, self).__init__(*args, **kwargs)
+
+        for name in self.fields.keys():
+            if name == "type_Operation":
+                self.fields[name].widget.attrs.update({'class':'form-control'})
 
     class Meta:
         model = Operation

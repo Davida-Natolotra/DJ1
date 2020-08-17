@@ -97,3 +97,28 @@ function circuit(x) {
     $("#rouge , #jaune").hide()
   }
 }
+// Somme total
+$(document).ready(function(){
+  console.log('$("#id_Montant_Fret").val() = '+$("#id_Montant_Fret").val());
+  console.log('$("#id_BAD_Montant").val() = '+$("#id_BAD_Montant").val());
+  console.log('$("#id_Overstay_Montant").val() = '+$("#id_Overstay_Montant").val());
+  let total =
+  Number($("#id_BAD_Montant").val()) +
+  Number($("#id_Overstay_Montant").val()) +
+  Number($("#id_Surestaries_Montant").val()) +
+  Number($("#id_Montant_MICTSL").val()) +
+  Number($("#id_Magasinage_Montant").val()) +
+  Number($("#id_DAU_Depense").val()) +
+  Number($("#id_Amende_Montant").val()) +
+  Number($("#id_OV_Montant").val()) +
+  Number($("#id_OV_Depense").val()) +
+  Number($("#id_OV_Docker").val()) +
+  Number($("#id_Montant_Fret").val()) +
+  Number($("#id_Immobilisation").val()) +
+  Number($("#id_Autres_Montant").val()) +
+  Number($("#id_Depense_Fixe").val()) +
+  Number($("#id_Depense_Autre").val());
+
+  console.log("Total = "+total);
+  document.getElementById("id_Total").value = total;
+})

@@ -22,7 +22,7 @@
 <form class="form-group" action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div class="row justify-content-center">
-		<div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:67vh">
+		<div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:60vh">
 			{% include "operation/DedCompany.html" %}
 			{% include "operation/DedMICTSL.html" %}
 			{% include "operation/DedDouane.html" %}
@@ -171,5 +171,7 @@
 			document.getElementById("id_OV_Num_Compte").value = "00010 035659 201 01"
 		}
 	})
+
+
 </script>
 {% endblock js %}

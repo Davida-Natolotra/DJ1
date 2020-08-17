@@ -1,0 +1,246 @@
+{% extends "base/main.html" %}
+{% load static  %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facture/css/kendo.common-material.min.css' %}">
+<link rel="stylesheet" href="{% static 'facture/css/kendo.material.min.css' %}">
+<link rel="stylesheet" href="{% static 'facture/css/style.css' %}">
+
+<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation</h1>
+<hr>
+<h2 class="text-center">Facture de l'operation <span id="idOp">{{id}}</span> </h2>
+
+<form class="form-group" method="post">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:67vh">
+      <div class="invoice overflow-auto" id="myCanvas">
+        <div style="min-width: 600px">
+          <header>
+            <div class="row">
+              <div class="col">
+                <a target="_blank" href="#">
+                  <img src="{% static 'base/assets/Logo.png'%}" data-holder-rendered="true" style="height:80%" />
+                </a>
+              </div>
+              <div class="col company-details">
+                <h2 class="name">
+                  <a target="_blank" href="">
+                    Mateza Transit
+                  </a>
+                </h2>
+                <div>Préstataire de service à l'import et à l'export</div>
+                <div>Siège social: Lot V V 91 Ter A Manakambahiny</div>
+                <div>Tél: 0342550188</div>
+                <div>email: evadpro@live.fr</div>
+                <div>NIF: 4001936458</div>
+                <div>Stat: 46101112015010315</div>
+              </div>
+            </div>
+          </header>
+          <main>
+            <div class="row contacts">
+              <div class="col invoice-to">
+                <div class="text-gray-light">Facturé à:</div>
+                <div>Nom du client</div>
+                <h2 class="to">{{form.Facture_Nom_Client}}
+                </h2>
+                <div>Adresse du client</div>
+                <div class="address">{{form.Facture_Adresse_Client}}</div>
+                <div>Contact(s) du client</div>
+                <div class="email">{{form.Facture_Contact_Client}}</div>
+                <div>email du client</div>
+                <div class="email">{{form.Facture_email_client}}</div>
+              </div>
+              <div class="col invoice-details w3-right">
+                <h1 class="invoice-id">FACTURE No <span>{{form.Facture_Num_Facture}}</span></h1>
+                <div class="date">Date of Invoice: <span>{{form.Facture_Date_Facture}}</span></div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr>
+                    <th data-sortable="true" class=" w3-large">Désignation</th>
+                    <th data-sortable="true" class="text-right w3-large">Montant</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="w3-large">
+                      OT Honoraire
+                    </td>
+                    <td class="total">{{form.Facture_OT_Honoraire}}</td>
+                  <tr>
+                    <td class="w3-large">
+                      BAD
+                    </td>
+                    <td class="total">{{form.Facture_BAD_Montant}}</td>
+                  <tr>
+                    <td class="w3-large">
+                      Overstay
+                    </td>
+                    <td class="total">{{form.Facture_Overstay_Montant}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Surestaries
+                    </td>
+                    <td class="total">{{form.Facture_Surestaries_Montant}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      MICTSL/SMMC
+                    </td>
+                    <td class="total">{{form.Facture_Debarquement}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Magasinage
+                    </td>
+                    <td class="total">{{form.Facture_Magasinage_Montant}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Droit compromis
+                    </td>
+                    <td class="total">{{form.Facture_Droit_Compromis}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Droit compromis
+                    </td>
+                    <td class="total">{{form.Facture_Droit_Compromis}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Amende
+                    </td>
+                    <td class="total">{{form.Facture_Amende_Montant}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      OV
+                    </td>
+                    <td class="total">{{form.Facture_OV_Montant}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Docker
+                    </td>
+                    <td class="total">{{form.Facture_OV_Docker}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Fret
+                    </td>
+                    <td class="total">{{form.Facture_Montant_Fret}}</td>
+                  <tr>
+                  <tr>
+                    <td class="w3-large">
+                      Immobilisation
+                    </td>
+                    <td class="total">{{form.Facture_Immobilisation}}</td>
+                  </tr>
+                  <tr>
+                    <td class="w3-large">
+                      Autres montant
+                    </td>
+                    <td class="total">{{form.Facture_Autres_Montant}}</td>
+
+                  </tr>
+
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="1">SUBTOTAL [Ar]</td>
+                    <td>{{form.Facture_SousTotal}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1">TAX %</td>
+                    <td>{{form.Tax}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1">GRAND TOTAL [Ar]</td>
+                    <td>{{form.TotalFacture}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+
+            </div>
+
+          </main>
+          <footer>
+            Invoice was created on a computer and is valid without the signature and seal.
+          </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+      </div>
+      </div>
+      </div>
+    </div>
+    <hr class="mb-3">
+    <div class="row justify-content-center">
+      <div class="">
+        <a href="{% url 'indexOperation' %}" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw"></i>Retour</a>
+        <button type="submit" name="button" class="btn btn-primary"><i class="fas fa-save fa-fw"></i> Enregistrer</button>
+        <a href="{% url 'previewFacture' id=id %}" class="btn btn-info"><i class="fas fa-magic fa-fw"></i> Preview</a>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'facture/js/jszip.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/kendo.all.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/script.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/calcul.js' %}" charset="utf-8"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var id = Number($("#idOp").text())
+    console.log("id = " + id);
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'initFacture'%}",
+      data: {
+        "id": id,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function(response) {
+        var Facture_OT_Honoraire = response.Facture_OT_Honoraire;
+        console.log('Facture_OT_Honoraire = ' + Facture_OT_Honoraire);
+        if (!$("#id_Facture_OT_Honoraire").val()) {
+          console.log("Facture OT Honoraire hita");
+          document.getElementById("id_Facture_OT_Honoraire").value = Number(response.Facture_OT_Honoraire);
+        }
+        if (!$("#id_Facture_Autres_Montant").val()) {
+          document.getElementById("id_Facture_Autres_Montant").value = response.Facture_Autres_Montant;
+        }
+        if (!$("#id_Facture_BAD_Montant").val()) {
+          document.getElementById("id_Facture_BAD_Montant").value = response.Facture_BAD_Montant;
+        }
+        if (!$("#id_Facture_Overstay_Montant").val()) {
+          document.getElementById("id_Facture_Overstay_Montant").value = response.Facture_Overstay_Montant;
+        }
+        if (!$("#id_Facture_Surestaries_Montant").val()) {
+          document.getElementById("id_Facture_Surestaries_Montant").value = response.Facture_Surestaries_Montant;
+        }
+        if (!$("#id_Facture_Debarquement").val()) {
+          document.getElementById("id_Facture_Debarquement").value = response.Facture_Debarquement;
+        }
+        if (!$("#id_Facture_Magasinage_Montant").val()) {
+          document.getElementById("id_Facture_Magasinage_Montant").value = response.Facture_Magasinage_Montant;
+        }
+        if (!$("#id_Facture_Nom_Client").val()) {
+          document.getElementById("id_Facture_Nom_Client").value = response.Facture_Nom_Client;
+        }
+      },
+      error: function(response) {
+        console.log("ERROR" + response);
+      }
+    })
+  })
+</script>
+{% endblock js %}

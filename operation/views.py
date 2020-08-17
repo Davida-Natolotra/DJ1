@@ -50,7 +50,12 @@ def editPreparation(request,pk=None):
         form = preparationForm(request.POST,request.FILES,instance=operation)
         if form.is_valid():
             form.save()
-
+            if operation.INCOTERM != '' and operation.Montant_Invoice != '' and operation.Invoice_Num != '' and operation.Nbre_Colis != '' and operation.Gross_Weight != '' and operation.Net_Weight != '' and operation.DE_Num != '' and operation.Fumigation_Num != '' and operation.Exportateur_Name != '' and operation.Importateur_Name != '' and operation.BSC_Depense != '' and operation.Dom_Num != '' and operation.Dom_Banque != '' and operation.Dom_Num_Compte != '' and operation.Dom_Depense != '' and operation.Date_OT != '' and operation.OT_Honoraire != '' :
+                operation.Prep_Full = True
+                operation.save()
+            else:
+                operation.Prep_Full = False
+                operation.save()
     else:
         form = preparationForm(instance=operation)
     return render(request,'operation/editPreparation.html',{'form':form})

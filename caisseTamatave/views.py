@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from base.views import topbar
 from .form import CaisseForm
 from .models import Caisse, Solde
 from .soldeForm import SoldeForm

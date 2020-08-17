@@ -18,7 +18,7 @@
 
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
+      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
         data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
         <thead class="thead-dark gray-dark">
           <tr>
@@ -40,6 +40,37 @@
 
         <tbody>
           {% for i in operations %}
+          {% if not i.Prep_Full %}
+          <tr class="w3-sand">
+            <td class="text-right">{{i.Reference_Reception}}</td>
+
+            <td>{{i.Container}}</td>
+            <td>{{i.BL_Num}}</td>
+            <td>{{i.Importateur_Name}}</td>
+            <td>{{i.Nbre_Colis}}</td>
+            <td class="text-right">{{i.Poids}}</td>
+            <td>{{i.Plomb}}</td>
+            <td>{{i.Depart}}</td>
+            <td>{{i.Arrivee_Tana}}</td>
+            <td>{{i.Client}}</td>
+
+            <td>
+              <div class="dropdown">
+                <button type="button" name="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Action
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a href="{% url 'editReception' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Reception</a>
+                  <a href="{% url 'editPreparation' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Preparation</a>
+                  <a href="{% url 'editDedouannement' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Dedouannement</a>
+                  <a href="{% url 'editFacture' id=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Facture</a>
+                  <a href="{% url 'deleteOperation' pk=i.pk %}" class="dropdown-item w3-hover-red"><i class="fas fa-trash w3-margin-right"></i>Supprimer</a>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+          {% else %}
 
           <tr>
             <td class="text-right">{{i.Reference_Reception}}</td>
@@ -63,12 +94,14 @@
                   <a href="{% url 'editReception' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Reception</a>
                   <a href="{% url 'editPreparation' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Preparation</a>
                   <a href="{% url 'editDedouannement' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Dedouannement</a>
+                  <a href="{% url 'editFacture' id=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Facture</a>
                   <a href="{% url 'deleteOperation' pk=i.pk %}" class="dropdown-item w3-hover-red"><i class="fas fa-trash w3-margin-right"></i>Supprimer</a>
                 </div>
               </div>
 
             </td>
           </tr>
+          {% endif %}
 
           {% endfor %}
         </tbody>

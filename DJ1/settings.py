@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     'importateur',
     'exportateur',
     'compagnie',
-    'operation'
+    'operation',
+    'facture',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

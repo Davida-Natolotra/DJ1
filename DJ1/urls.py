@@ -30,4 +30,5 @@ urlpatterns = [
     path('',include('exportateur.urls')),
     path('',include('compagnie.urls')),
     path('',include('operation.urls')),
+    path('',include('facture.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
