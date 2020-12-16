@@ -25,7 +25,7 @@ SECRET_KEY = '_ikeushbie0s&b-vv8p(4+67a6vt4wf3bwe4)^xr+yq)5f0$7!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['SERVER_SITE','localhost','127.0.0.1','192.168.43.218']
+ALLOWED_HOSTS = ['SERVER_SITE','localhost','127.0.0.1','*']
 
 
 # Application definition
@@ -49,8 +49,14 @@ INSTALLED_APPS = [
     'compagnie',
     'operation',
     'facture',
+    'django.contrib.sites', # < here
+    'allauth', # < here
+    'allauth.account', # < here
+    'allauth.socialaccount',
 ]
 
+SITE_ID = 1 # < here
+LOGIN_REDIRECT_URL = '/' # < here
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -116,7 +122,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
