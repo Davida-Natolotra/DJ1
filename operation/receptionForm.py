@@ -17,13 +17,13 @@ class ReceptionForm(ModelForm):
 
     BL_Date = forms.DateField(label="Date BL", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateBL"}),required=False)
 
-    Container = forms.CharField(label='Num BL',
+    Container = forms.CharField(label='Container',
     widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
 
-    Plomb = forms.CharField(label='Num BL',
+    Plomb = forms.CharField(label='Num Plomb',
     widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
 
-    ETA = forms.DateField(label="Date BL", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateEntree"}),required=False)
+    ETA = forms.DateField(label="ETA", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateEntree"}),required=False)
 
     Marchandise = forms.CharField(label='Num BL',
     widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)

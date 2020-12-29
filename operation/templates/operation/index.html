@@ -39,6 +39,7 @@
         </thead>
 
         <tbody>
+          {% load l10n %}
           {% for i in operations %}
           {% if not i.Prep_Full %}
           <tr class="w3-sand">
@@ -50,7 +51,7 @@
             <td>{{i.Nbre_Colis}}</td>
             <td class="text-right">{{i.Poids}}</td>
             <td>{{i.Plomb}}</td>
-            <td>{{i.Depart}}</td>
+            <td>{{i.Depart|localize}}</td>
             <td>{{i.Arrivee_Tana}}</td>
             <td>{{i.Client}}</td>
 
@@ -126,6 +127,7 @@
 <script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
 <script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
 <!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+{% include "base/modal.html" %}
 <script type="text/javascript">
   $(function() {
     $('#tableTest1').bootstrapTable({

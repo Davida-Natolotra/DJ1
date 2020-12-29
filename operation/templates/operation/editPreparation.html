@@ -4,7 +4,7 @@
 {% load humanize %}
 <link rel="stylesheet" href="{% static 'operation/css/opstyle.css' %}">
 
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation</h1>
+<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation n°{{id}}</h1>
 <hr>
 <div class="row justify-content-center">
   <div class="col-md-8 col-lg-8">
@@ -29,10 +29,11 @@
         <div class="card-header card-link">
           <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Invoice</h4>
         </div>
+        {% load l10n %}
         <div class="card-body">
           {{form.INCOTERM.label}}
           {{form.INCOTERM}}
-          {{form.Montant_Invoice.label}}
+          {{form.Montant_Invoice.label|localize}}
           {{form.Montant_Invoice}}
           {{form.Invoice_Num.label}}
           {{form.Invoice_Num}}

@@ -13,9 +13,15 @@ from compagnie.models import Compagnie
 # Create your views here.
 def indexOperation(request):
     operations = Operation.objects.all()
-    return render(request,'operation/index.html',{'operations':operations})
+    pageTitle = "Operation"
+    context = {
+        'operations':operations,
+        'pageTitle':pageTitle
+    }
+    return render(request,'operation/index.html',context)
 
 def createReception(request):
+    id = " nouvelle enregistrement"
     if request.method == 'POST':
         form = ReceptionForm(request.POST,request.FILES)
         if form.is_valid():
@@ -23,7 +29,12 @@ def createReception(request):
             return HttpResponseRedirect('/operation/')
     else:
         form = ReceptionForm()
-    return render(request,'operation/editReception.html',{'form':form})
+    context = {
+        'form':form,
+        'id':id,
+        'pageTitle':"Operation"
+    }
+    return render(request,'operation/editReception.html',context)
 
 def editReception(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
@@ -34,7 +45,7 @@ def editReception(request,pk=None):
 
     else:
         form = ReceptionForm(instance=operation)
-    return render(request,'operation/editReception.html',{'form':form})
+    return render(request,'operation/editReception.html',{'form':form,'id':operation.Reference_Reception})
 
 def deleteOperation(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
@@ -58,7 +69,7 @@ def editPreparation(request,pk=None):
                 operation.save()
     else:
         form = preparationForm(instance=operation)
-    return render(request,'operation/editPreparation.html',{'form':form})
+    return render(request,'operation/editPreparation.html',{'form':form,'id':operation.Reference_Reception})
 
 def editDedouannement(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
@@ -69,7 +80,7 @@ def editDedouannement(request,pk=None):
 
     else:
         form = dedouannementForm(instance=operation)
-    return render(request,'operation/editDedouannement.html',{'form':form})
+    return render(request,'operation/editDedouannement.html',{'form':form,'id':operation.Reference_Reception})
 
 
 def ExportateurData(request):

@@ -1,6 +1,7 @@
 {% extends 'base/main.html'%}
 {% block content %}
 {% load static %}
+{% load l10n %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
 <style media="screen">
@@ -11,20 +12,20 @@
     border: none;
   }
 </style>
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Caisse Tana</h1>
-<hr>
+{% localize on %}
+
 <div class="card shadow mb-4">
   <div class="card-header mb-4">
     <h6 class="m-0 font-weight-bold w3-text-red">Solde</h6>
   </div>
   <div class="card-body">
 
-
     <div class="row justify-content-lg-start">
       <div class="col-md-6 col-lg-2">
 
         {% for solde in solde %}
-        <table class="w3-table w3-bordered text-nowrap">
+
+        <table class="w3-table w3-bordered text-nowrap text-gray-800">
           <thead>
             <tr>
               <th>Solde initial [Ar]</th>
@@ -34,8 +35,7 @@
           </thead>
           <tbody>
             <tr>
-              <td><a href="{% url 'refSoldeTana' pk=solde.pk %}" class="btn btn-success"><i
-                    class="fas fa-edit w3-margin-right"></i>Modifier</a></td>
+              <td><a href="{% url 'refSoldeTana' pk=solde.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Modifier</a></td>
               <td class="w3-right-align w3-large">{{solde.soldeInitial}}</td>
             </tr>
           </tbody>
@@ -54,7 +54,6 @@
             </tr>
           </tbody>
         </table>
-
         {% endfor %}
       </div>
       <hr class="mb-3">
@@ -74,15 +73,12 @@
   </div>
   <div class="card-body">
     <div id="toolbar">
-      <button class="btn btn-secondary w3-hover-red" onclick="window.location.href='/caisseTana/create'"><i
-          class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+      <button class="btn btn-danger" onclick="window.location.href='/caisseTana/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
 
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true"
-        data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table"
-        data-show-columns="true" data-pagination="true" data-sortable="true" data-show-export="true"
-        data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
+      <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
+        data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
         <thead class="thead-dark gray-dark">
           <tr>
             <th data-sortable="true">Libellee</th>
@@ -101,11 +97,9 @@
             <td class="text-right">{{i.depense}}</td>
             <td class="text-right">{{i.recette}}</td>
             <td>
-              <a href="{% url 'editCaisseTana' pk=i.pk %}" class="btn btn-success"><i
-                  class="fas fa-edit w3-margin-right"></i>Ed</a>
+              <a href="{% url 'editCaisseTana' pk=i.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Ed</a>
 
-              <a href="{% url 'deleteCaisseTana' pk=i.pk %}" class="btn btn-danger"><i
-                  class="fas fa-remove w3-margin-right"></i>Sup</a>
+              <a href="{% url 'deleteCaisseTana' pk=i.pk %}" class="btn btn-danger"><i class="fas fa-remove w3-margin-right"></i>Sup</a>
             </td>
           </tr>
 
@@ -115,8 +109,9 @@
     </div>
   </div>
 </div>
+{% endlocalize %}
 
-{% endblock %}
+{% endblock content %}
 
 {% block js %}
 {% load static %}
@@ -132,17 +127,18 @@
 <script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
 <script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
 <!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+{% include "base/modal.html" %}
 <script type="text/javascript">
-  $(function () {
+  $(function() {
     $('#tableTest1').bootstrapTable({
       height: $(window).height(),
-      onAll: function (name, args) {
+      onAll: function(name, args) {
         fixleftwidth()
       }
     });
 
     function fixleftwidth() {
-      setTimeout(function () {
+      setTimeout(function() {
         var fixColumnTds = $(".fixed-table-body-columns tr:first-child td");
         var fixNum = fixColumnTds.length;
         var tableBody = $(".fixed-table-body tbody tr:first-child td");
@@ -152,11 +148,18 @@
       }, 0)
     }
     fixleftwidth()
-    $(window).resize(function () {
+    $(window).resize(function() {
       $('#tableTest1').bootstrapTable('resetView');
       fixleftwidth()
     });
   });
 </script>
-
-{% endblock %}
+<script>
+$(document).ready(function(){
+  $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+  $("#caisseTanaMenu").addClass("active");
+  $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+  $("h3").addClass("text-danger");
+})
+</script>
+{% endblock js %}

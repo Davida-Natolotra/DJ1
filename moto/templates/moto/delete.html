@@ -1,5 +1,12 @@
-{% extends 'base/main.html'%}
-
+{% extends 'base/blankbone.html'%}
+{% if request.user.is_staff %}
+{% block sidebar %}
+{% include "base/sidebar.html" %}
+{% endblock sidebar %}
+{% endif %}
+{% block topbar %}
+{% include "base/topbar2.html" %}
+{% endblock topbar %}
 
 {% block content %}
 <div class="jumbotron w3-pale-red">
@@ -28,3 +35,8 @@
 </div>
 <br><br>
 {% endblock content %}
+{% block js %}
+<script>
+$('#motoMenu').addClass("active");
+</script>
+{% endblock js %}

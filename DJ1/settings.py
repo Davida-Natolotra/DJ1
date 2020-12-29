@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'allauth', # < here
     'allauth.account', # < here
     'allauth.socialaccount',
+    'accounts',
+    'commercial'
 ]
 
 SITE_ID = 1 # < here
@@ -129,7 +131,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

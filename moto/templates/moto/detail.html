@@ -1,19 +1,87 @@
-{% extends 'base/base.html' %}
-
+{% extends 'base/blankbone.html'%}
+{% if request.user.is_staff %}
+{% block sidebar %}
+{% include "base/sidebar.html" %}
+{% endblock sidebar %}
+{% endif %}
+{% block topbar %}
+{% include "base/topbar2.html" %}
+{% endblock topbar %}
+{% load static %}
 {% block content %}
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-3">{{ flower.title }}</h1>
-            <div class="row">
-                <img src="{{flower.image.url}}" alt="" class="col">
-                <div class="lead col">{{flower.description }}</div>
-            </div>
-            <h6 class="w3-right"><span>Created in </span>{{flower.datepick}}</h6>
-
-        </div><br>
-        <a href="/" class="btn btn-info w3-margin-left">Back</a>
-
+{% load humanize %}
+{% load l10n %}
+<hr>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-4 pre-scrollable" style="max-height:55vh">
+      {% localize off %}
+      {{ form }}
+      {% endlocalize %}
     </div>
-    <br><br>
+    <hr class="mb-3">
+
+  </div>
+  <div class="row justify-content-center">
+    <div class=""><br>
+      <a href="/moto/" class=" btn btn-secondary"><i
+          class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+      <a href="/moto/create" class="btn btn-primary"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle
+        enregistrement</a>
+    </div>
+  </div>
+</form>
+
 {% endblock content %}
-    
+{% block js %}
+{% include "base/modal.html" %}
+<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
+<script>
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  console.log("today = " + today);
+  document.getElementById("dateEntree").setAttribute("max", today);
+  document.getElementById("dateVente").setAttribute("max", today);
+
+  new Cleave('#id_PA', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  new Cleave('#id_PV', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  new Cleave('#id_montant_reparation', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fa-motorcycle fa-fw w3-margin-right");
+    $("input").each(function () {
+      $(this).attr({
+        "disabled": "disabled",
+        'style': 'background-color:white'
+      });
+    })
+    $("#id_PJ_CIN_Client_1_recto, #id_PJ_CIN_Client_1_verso, #id_PJ_CIN_Client_2_recto, #id_PJ_CIN_Client_2_verso, #id_PJ_Facture")
+      .removeAttr("disabled")
+  });
+  $("#motoMenu").addClass('active')
+</script>
+{% endblock js %}

@@ -14,15 +14,16 @@
 
   <!-- Custom fonts for this template-->
   <link href="{% static '/base/css/all.min.css' %}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="{% static '/base/css/sb-admin-2.min.css'%}" rel="stylesheet">
   <link href="{% static '/base/css/w3.css'%}" rel="stylesheet">
   <style media="screen">
     #Wrapper {
-      background-image: img("{% static '/base/assets/BG_BW_Comp.jpg' %}");
-    }
+      background-image: url("{% static '/base/assets/BG_BW_Comp.jpg' %}");
+      background-repeat: no-repeat;
+      background-position: right bottom;
+      background-size:contain;}
   </style>
 
 </head>
@@ -30,7 +31,7 @@
 <body id="page-top">
 
   <!-- Page Wrapper -->
-  <div id="wrapper" class="img-fluid">
+  <div id="Wrapper" class="img-fluid">
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -53,23 +54,22 @@
 
 
           <div class="row">
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/moto'"><i class="fas fa-motorcycle w3-xxxlarge"></i><br>Moto</button>
+            <button class="btn w3-border-indigo w3-hover-indigo text-primary col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/moto'"><i class="fas fa-motorcycle w3-xxxlarge"></i><br>Moto</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/caisseTana'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/caisseTana'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
               Tana</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/caisseTamatave'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/caisseTamatave'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
               Tamatave</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/versement'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Versement</button>
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/versement'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Versement</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/importateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Importateur</button>
+            <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/importateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Importateur</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/exportateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Exportateur</button>
+            <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/exportateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Exportateur</button>
+            <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/compagnie'"><i class="fas fa-building w3-xxxlarge"></i><br>Compagnie</button>
 
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/compagnie'"><i class="fas fa-building w3-xxxlarge"></i><br>Compagnie</button>
-
-            <button class="btn w3-dark-gray col-md-2 w3-hover-red  w3-margin" style="height: 20vh;" type="submit" onclick="window.location.href='/operation'"><i class="fas fa-cogs w3-xxxlarge"></i><br>Operation</button>
+            <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/operation'"><i class="fas fa-cogs w3-xxxlarge"></i><br>Operation</button>
           </div>
 
         </div>
@@ -99,24 +99,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="{% static '/base/vendor/jquery/jquery.min.js' %}"></script>
@@ -127,27 +110,10 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static '/base/js/sb-admin-2.min.js' %}"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      var send = "Send"
-      $.ajax({
-        type: 'GET',
-        url: "{% url 'topbar'%}",
-        data: {
-          "send": send,
-          csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        success: function(response) {
-          var notification = response.notification;
-          var counter = response.counter;
-          document.getElementById("msg").innerHTML = notification;
-          document.getElementById("notifbadge").innerHTML = counter;
-        },
-        error: function(response) {
-          console.log("ERROR" + response);
-        }
-      })
-    })
+  
+  <script>
+    $("#pageTitle").addClass("fas fa-building fa-fw w3-margin-right");
+    $("h3").addClass("text-gray-800");
   </script>
 </body>
 

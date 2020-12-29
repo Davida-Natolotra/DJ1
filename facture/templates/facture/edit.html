@@ -1,6 +1,16 @@
-{% extends "base/main.html" %}
-{% load static  %}
+{% extends 'base/blankbone.html'%}
+{% if request.user.is_staff %}
+{% block sidebar %}
+{% include "base/sidebar.html" %}
+{% endblock sidebar %}
+{% endif %}
+{% block topbar %}
+{% include "base/topbar2.html" %}
+{% endblock topbar %}
+{% load static %}
 {% block content %}
+{% load humanize %}
+{% load l10n %}
 <link rel="stylesheet" href="{% static 'facture/css/kendo.common-material.min.css' %}">
 <link rel="stylesheet" href="{% static 'facture/css/kendo.material.min.css' %}">
 <link rel="stylesheet" href="{% static 'facture/css/style.css' %}">
@@ -11,8 +21,9 @@
 
 <form class="form-group" method="post">
   {% csrf_token %}
+  {% localize off %}
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:67vh">
+    <div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:60vh">
       <div class="invoice overflow-auto" id="myCanvas">
         <div style="min-width: 600px">
           <header>
@@ -53,7 +64,8 @@
               </div>
               <div class="col invoice-details w3-right">
                 <h1 class="invoice-id">FACTURE No <span>{{form.Facture_Num_Facture}}</span></h1>
-                <div class="date">Date of Invoice: <span>{{form.Facture_Date_Facture}}</span></div>
+                {% load l10n %}
+                <div class="date">Date of Invoice: <span>{{form.Facture_Date_Facture|unlocalize}}</span></div>
               </div>
             </div>
 
@@ -177,28 +189,31 @@
         <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
         <div></div>
       </div>
-      </div>
-      </div>
-    </div>
-    <hr class="mb-3">
-    <div class="row justify-content-center">
-      <div class="">
-        <a href="{% url 'indexOperation' %}" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw"></i>Retour</a>
-        <button type="submit" name="button" class="btn btn-primary"><i class="fas fa-save fa-fw"></i> Enregistrer</button>
-        <a href="{% url 'previewFacture' id=id %}" class="btn btn-info"><i class="fas fa-magic fa-fw"></i> Preview</a>
-      </div>
     </div>
   </div>
+  </div>
+  <hr class="mb-3">
+  <div class="row justify-content-center">
+    <div class="">
+      <a href="{% url 'indexOperation' %}" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw"></i>Retour</a>
+      <button type="submit" name="button" class="btn btn-primary"><i class="fas fa-save fa-fw"></i> Enregistrer</button>
+      <a href="{% url 'previewFacture' id=id %}" class="btn btn-info"><i class="fas fa-magic fa-fw"></i> Preview</a>
+    </div>
+  </div>
+  </div>
+  {% endlocalize %}
 </form>
+{% include 'base/modal.html' %}
 {% endblock content %}
 {% block js %}
 <script src="{% static 'facture/js/jszip.min.js' %}" charset="utf-8"></script>
 <script src="{% static 'facture/js/kendo.all.min.js' %}" charset="utf-8"></script>
 <script src="{% static 'facture/js/script.js' %}" charset="utf-8"></script>
 <script src="{% static 'facture/js/calcul.js' %}" charset="utf-8"></script>
+<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
     var id = Number($("#idOp").text())
     console.log("id = " + id);
     $.ajax({
@@ -208,12 +223,12 @@
         "id": id,
         csrfmiddlewaretoken: '{{ csrf_token }}'
       },
-      success: function(response) {
+      success: function (response) {
         var Facture_OT_Honoraire = response.Facture_OT_Honoraire;
         console.log('Facture_OT_Honoraire = ' + Facture_OT_Honoraire);
         if (!$("#id_Facture_OT_Honoraire").val()) {
           console.log("Facture OT Honoraire hita");
-          document.getElementById("id_Facture_OT_Honoraire").value = Number(response.Facture_OT_Honoraire);
+          document.getElementById("id_Facture_OT_Honoraire").value = response.Facture_OT_Honoraire;
         }
         if (!$("#id_Facture_Autres_Montant").val()) {
           document.getElementById("id_Facture_Autres_Montant").value = response.Facture_Autres_Montant;
@@ -225,22 +240,127 @@
           document.getElementById("id_Facture_Overstay_Montant").value = response.Facture_Overstay_Montant;
         }
         if (!$("#id_Facture_Surestaries_Montant").val()) {
-          document.getElementById("id_Facture_Surestaries_Montant").value = response.Facture_Surestaries_Montant;
+          document.getElementById("id_Facture_Surestaries_Montant").value = response
+            .Facture_Surestaries_Montant;
         }
         if (!$("#id_Facture_Debarquement").val()) {
           document.getElementById("id_Facture_Debarquement").value = response.Facture_Debarquement;
         }
         if (!$("#id_Facture_Magasinage_Montant").val()) {
-          document.getElementById("id_Facture_Magasinage_Montant").value = response.Facture_Magasinage_Montant;
+          document.getElementById("id_Facture_Magasinage_Montant").value = response
+          .Facture_Magasinage_Montant;
         }
         if (!$("#id_Facture_Nom_Client").val()) {
           document.getElementById("id_Facture_Nom_Client").value = response.Facture_Nom_Client;
         }
       },
-      error: function(response) {
+      error: function (response) {
         console.log("ERROR" + response);
       }
     })
   })
+  Kajy();
+  $(document).change(function () {
+    Kajy();
+    this.id_Facture_SousTotal = new Cleave('#id_Facture_SousTotal', {
+      numeral: true,
+      numeralDecimalMark: '.',
+      delimiter: ' '
+    });
+    this.id_TotalFacture = new Cleave('#id_TotalFacture', {
+      numeral: true,
+      numeralDecimalMark: '.',
+      delimiter: ' '
+    });
+    console.log("test being");
+  })
+
+  this.id_Facture_OT_Honoraire = new Cleave('#id_Facture_OT_Honoraire', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Autres_Montant = new Cleave('#id_Facture_Autres_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_BAD_Montant = new Cleave('#id_Facture_BAD_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Overstay_Montant = new Cleave('#id_Facture_Overstay_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Surestaries_Montant = new Cleave('#id_Facture_Surestaries_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Debarquement = new Cleave('#id_Facture_Debarquement', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Magasinage_Montant = new Cleave('#id_Facture_Magasinage_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Droit_Compromis = new Cleave('#id_Facture_Droit_Compromis', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Amende_Montant = new Cleave('#id_Facture_Amende_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_OV_Montant = new Cleave('#id_Facture_OV_Montant', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_OV_Docker = new Cleave('#id_Facture_OV_Docker', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Montant_Fret = new Cleave('#id_Facture_Montant_Fret', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_Immobilisation = new Cleave('#id_Facture_Immobilisation', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_Facture_SousTotal = new Cleave('#id_Facture_SousTotal', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_TotalFacture = new Cleave('#id_TotalFacture', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+
+  var message = "{{message}}"
+  if (message === "error") {
+    console.log("Message = " + message);
+    $('#error').modal();
+
+  } else if (message === "success") {
+    $('#success').modal();
+
+  } else if (message === "create") {
+    $('#create').css('display', 'block')
+  }
 </script>
 {% endblock js %}

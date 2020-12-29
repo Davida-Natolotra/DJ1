@@ -1,26 +1,31 @@
-{% extends 'base/main.html'%}
+{% extends 'base/blankbone.html'%}
+{% block topbar %}
+{% include 'base/topbar.html' %}
+{% endblock topbar %}
+{% block sidebar %}
+{% include 'base/sidebar.html' %}
+{% endblock sidebar %}
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Versement</h1>
-<hr>
+
 
 <br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold w3-text-red">Table de recapitulation</h6>
+    <h6 class="m-0 font-weight-bold text-danger">Table de recapitulation</h6>
   </div>
   <div class="card-body">
     <div id="toolbar">
-      <button class="btn btn-secondary" onclick="window.location.href='/versement/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+      <button class="btn btn-danger" onclick="window.location.href='/versement/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
 
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
+      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
         data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
-        <thead class="thead-dark gray-dark">
+        <thead class="thead-light">
           <tr>
             <th data-sortable="true">Date</th>
             <th data-sortable="true">Référence</th>
@@ -40,9 +45,9 @@
             <td>{{i.montant}}</td>
             <td>{{i.remarque | truncatechars:20}}</td>
             <td>
-              <a href="{% url 'editVersement' pk=i.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Ed</a>
+              <a href="{% url 'editVersement' pk=i.pk %}" class="btn btn-circle btn-success"><i class="fas fa-edit w3-margin-right"></i>Ed</a>
 
-              <a href="{% url 'deleteVersement' pk=i.pk %}" class="btn btn-danger"><i class="fas fa-remove w3-margin-right"></i>Sup</a>
+              <a href="{% url 'deleteVersement' pk=i.pk %}" class="btn btn-circle btn-danger"><i class="fas fa-remove w3-margin-right"></i>Sup</a>
               </td>
           </tr>
           {% endfor %}
@@ -94,5 +99,16 @@
     });
   });
 </script>
-
-{% endblock %}
+<script>
+$('#versementMenu').addClass("active");
+$('#pageTitle').addClass("fas fa-cash-register fa-fw")
+</script>
+<script>
+  $(document).ready(function () {
+    $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+    $("#versementMenu").addClass("active");
+    $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+    $("h3").addClass("text-danger");
+  })
+</script>
+{% endblock js %}

@@ -17,3 +17,16 @@ h1 {
     height: 60px;
     line-height: 60px;
 }
+
+.bg-gradient-image {
+  background-color: #5a5c69;
+  background-image: url('../assets/bg.jpg');
+  background-size: cover;
+}
+
+.bg-login-logo {
+  background-image: url('../assets/Logo2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-size: ; */
+}

@@ -1,12 +1,14 @@
 {% extends "base/main.html" %}
 {% load static  %}
 {% block content %}
+{% load l10n %}
 <link rel="stylesheet" href="{% static 'facture/css/kendo.common-material.min.css' %}">
 <link rel="stylesheet" href="{% static 'facture/css/kendo.material.min.css' %}">
 <link rel="stylesheet" href="{% static 'facture/css/style.css' %}">
 <h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation</h1>
 <hr>
 <h2 class="text-center">Prévisualisation de la facture</h2>
+{% localize on %}
 
 <br>
 <div class="row justify-content-center">
@@ -48,7 +50,7 @@
             </div>
             <div class="col invoice-details">
               <h1 class="invoice-id">FACTURE N°<span class="w3-margin-left">{{Facture.Facture_Num_Facture}}</span></h1>
-              <div class="date">Date: <span>{{Facture.Facture_Date_Facture}}</span></div>
+              <div class="date">Date: <span>{{Facture.Facture_Date_Facture|localize}}</span></div>
             </div>
           </div>
 
@@ -62,85 +64,111 @@
               </thead>
               <tbody>
                 <tr>
+                  {% if Facture.Facture_OT_Honoraire != None %}
                   <td class="w3-large">
                     OT - Honoraire
                   </td>
+
                   <td class="total">{{Facture.Facture_OT_Honoraire}}</td>
+                  {% endif %}
+
                 </tr>
                 <tr>
+                  {% if Facture.Facture_BAD_Montant != None %}
                   <td class="w3-large">
                     BAD
                   </td>
                   <td class="total">{{Facture.Facture_BAD_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Overstay_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     Overstay
                   </td>
                   <td class="total">{{Facture.Facture_Overstay_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Surestaries_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     Surestaries
                   </td>
                   <td class="total">{{Facture.Facture_Surestaries_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Debarquement != None %}
                 <tr>
                   <td class="w3-large">
                     Debarquement
                   </td>
                   <td class="total">{{Facture.Facture_Debarquement}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Magasinage_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     Magasinage
                   </td>
                   <td class="total">{{Facture.Facture_Magasinage_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Droit_Compromis != None %}
                 <tr>
                   <td class="w3-large">
                     Droit compromis
                   </td>
                   <td class="total">{{Facture.Facture_Droit_Compromis}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Amende_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     Amende
                   </td>
                   <td class="total">{{Facture.Facture_Amende_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_OV_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     OV
                   </td>
                   <td class="total">{{Facture.Facture_OV_Montant}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_OV_Docker != None %}
                 <tr>
                   <td class="w3-large">
                     Docker
                   </td>
                   <td class="total">{{Facture.Facture_OV_Docker}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Montant_Fret != None %}
                 <tr>
                   <td class="w3-large">
                     Fret
                   </td>
                   <td class="total">{{Facture.Facture_Montant_Fret}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Immobilisation != None %}
                 <tr>
                   <td class="w3-large">
                     Immobilisation
                   </td>
                   <td class="total">{{Facture.Facture_Immobilisation}}</td>
                 </tr>
+                {% endif %}
+                {% if Facture.Facture_Autres_Montant != None %}
                 <tr>
                   <td class="w3-large">
                     Autres montant
                   </td>
                   <td class="total">{{Facture.Facture_Autres_Montant}}</td>
                 </tr>
-
-
+                {% endif %}
               </tbody>
               <tfoot>
                 <tr>
@@ -171,6 +199,7 @@
 
 
 </div>
+{% endlocalize %}
 <hr class="mb-3">
 <div class="row justify-content-center">
   <div class="">

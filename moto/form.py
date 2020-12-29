@@ -1,59 +1,124 @@
 from django import forms
 from django.forms import ModelForm
 from moto.models import Moto
+from django.core.exceptions import ValidationError
+from decimal import Decimal, DecimalException
+from django.utils import formats
+from django.utils.encoding import force_text
+
+
+class Thousands(forms.DecimalField):
+    def to_python(self, value):
+        if value in self.empty_values:
+            return None
+        if self.localize:
+            value = formats.sanitize_separators(value)
+        value = force_text(value).strip().replace(' ', '')
+
+        try:
+            value = Decimal(value)
+        except DecimalException:
+            raise ValidationError(
+                self.error_messages['invalid'], code='invalid')
+        return value
+
 
 class MotoForm(ModelForm):
-    ID_Moto = forms.IntegerField(label="Reference ID", widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom'}))
+    # ID_Moto = forms.IntegerField(label="Reference ID", widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom'}))
+    #
+    date_entree = forms.DateField(label="Date d'entrée", widget=forms.DateInput(
+        attrs={'type': 'date', 'max': 'today', 'id': "dateEntree"}), required=False,localize=False)
 
-    date_entree = forms.DateField(label="Date d'entree", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateEntree"}),required=False)
+    date_vente = forms.DateField(label="Date de vente", widget=forms.DateInput(
+        attrs={'type': 'date', 'max': 'today', 'id': "dateVente"}), required=False,localize=True)
 
-    nom_moto = forms.CharField(label='Nom de la moto',
-        widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}))
+    PA = Thousands(
+        label='PA [Ar]',
+        label_suffix=False,
+        max_digits=20,
+        decimal_places=2,
+        widget=forms.TextInput()
+    )
+    PV = Thousands(
+        label='PV [Ar]',
+        label_suffix=False,
+        max_digits=20,
+        decimal_places=2,
+        widget=forms.TextInput()
+    )
 
-    num_moteur = forms.CharField(label='Numero du moteur',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
+    montant_reparation = Thousands(
+        label='Montant de réparation',
+        label_suffix=False,
+        max_digits=20,
+        decimal_places=2,
+        widget=forms.TextInput()
+    )
 
-    FRN = forms.CharField(label='FRN',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
+    def __init__(self, *args, **kwargs):
+        super(MotoForm, self).__init__(*args, **kwargs)
+        # add a "form-control" class to each form input
+        # for enabling bootstrap
+        for name in self.fields.keys():
+            self.fields[name].widget.attrs.update({
+                'class': 'form-control w3-margin-bottom',
+            })
+            if name != "ID_Moto" and name != "num_moteur":
+                self.fields[name].required = False
+            else:
+                self.fields[name].required = True
 
-    PA = forms.IntegerField(label="PA [Ar]", widget=forms.TextInput(attrs={'class':'form-control w3-margin-bottom','type':'number','pattern':'[0-9]+([\.,][0-9]+)?','lang':'fr','step':'0.01'}),required=False,localize=True)
-
-    PV = forms.IntegerField(label="PV [Ar]", widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom','type':'number'}),required=False)
-
-    date_vente = forms.DateField(label="Date de vente", widget=forms.DateInput(attrs={'type':'date','class':'form-control w3-margin-bottom','max': 'today', 'id': "dateVente"}),required=False)
-
-    nom_client_1 = forms.CharField(label='Nom du client 1',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    PJ_CIN_Client_1_recto = forms.FileField(label="CIN client 1 recto ", required=False, widget=forms.ClearableFileInput(attrs={'class':'form-control-file w3-margin-bottom'}))
-
-    PJ_CIN_Client_1_verso = forms.FileField(label="CIN client 1 verso ", required=False, widget=forms.ClearableFileInput(attrs={'class':'form-control-file w3-margin-bottom'}))
-
-    tel_client_1 = forms.CharField(label='Tel du client 1',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    num_BL = forms.CharField(label='Num BL',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    num_sur_facture = forms.CharField(label='Numero sur facture',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    nom_client_2 = forms.CharField(label='Nom du client 2',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    tel_client_2 = forms.CharField(label='Tel du client 2',
-    widget= forms.TextInput(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
-
-    PJ_CIN_Client_2_recto = forms.FileField(label="CIN client 2 recto ", required=False,widget=forms.ClearableFileInput(attrs={'class':'form-control-file w3-margin-bottom'}))
-
-    PJ_CIN_Client_2_verso = forms.FileField(label="CIN client 2 verso ", required=False,widget=forms.ClearableFileInput(attrs={'class':'form-control-file w3-margin-bottom'}))
-
-    montant_reparation = forms.IntegerField(label="Montant de reparation  [Ar]",widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom'}),required=False)
-
-    motif_reparation = forms.CharField(label='Motif de reparation',
-    widget= forms.Textarea(attrs={'class': 'form-control w3-margin-bottom'}),required=False)
+            if name == "num_sur_facture":
+                self.fields[name].label = "Num facture"
 
     class Meta:
         model = Moto
 
-        fields = ['ID_Moto','date_entree','nom_moto','num_moteur','FRN','PA','PV','date_vente','nom_client_1','PJ_CIN_Client_1_recto','PJ_CIN_Client_1_verso','tel_client_1','num_BL','num_sur_facture','nom_client_2','tel_client_2','PJ_CIN_Client_2_recto','PJ_CIN_Client_2_verso','montant_reparation','motif_reparation']
+        fields = ['ID_Moto', 'date_entree', 'nom_moto', 'num_moteur', 'FRN', 'PA', 'PV', 'date_vente', 'nom_client_1','CIN_Num_Client_1', 'PJ_CIN_Client_1_recto', 'PJ_CIN_Client_1_verso',
+                  'tel_client_1', 'num_BL', 'num_sur_facture', 'PJ_Facture', 'nom_client_2', 'tel_client_2', 'CIN_Num_Client_2', 'PJ_CIN_Client_2_recto', 'PJ_CIN_Client_2_verso', 'montant_reparation', 'motif_reparation', 'commercial']
+
+class MotoFormCom(ModelForm):
+    # ID_Moto = forms.IntegerField(label="Reference ID", widget=forms.NumberInput(attrs={'class':'form-control w3-margin-bottom'}))
+    #
+    date_entree = forms.DateField(label="Date d'entrée", widget=forms.DateInput(
+        attrs={'type': 'date', 'max': 'today', 'id': "dateEntree"}), required=False,localize=False)
+
+    date_vente = forms.DateField(label="Date de vente", widget=forms.DateInput(
+        attrs={'type': 'date', 'max': 'today', 'id': "dateVente"}), required=False,localize=True)
+
+    PV = Thousands(
+        label='PV [Ar]',
+        label_suffix=False,
+        max_digits=20,
+        decimal_places=2,
+        widget=forms.TextInput()
+    )
+
+    montant_reparation = Thousands(
+        label='Montant de réparation',
+        label_suffix=False,
+        max_digits=20,
+        decimal_places=2,
+        widget=forms.TextInput()
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(MotoFormCom, self).__init__(*args, **kwargs)
+        # add a "form-control" class to each form input
+        # for enabling bootstrap
+        for name in self.fields.keys():
+            self.fields[name].widget.attrs.update({
+                'class': 'form-control w3-margin-bottom',
+            })
+            if name != "ID_Moto" and name != "num_moteur":
+                self.fields[name].required = False
+            else:
+                self.fields[name].required = True
+                
+            if name == "num_sur_facture":
+                self.fields[name].label = "Num facture"
+    class Meta:
+        model = Moto
+
+        fields = ['ID_Moto', 'date_entree', 'nom_moto', 'num_moteur', 'FRN','PV', 'date_vente', 'nom_client_1','CIN_Num_Client_1', 'PJ_CIN_Client_1_recto', 'PJ_CIN_Client_1_verso',
+                  'tel_client_1', 'num_BL', 'num_sur_facture','PJ_Facture', 'nom_client_2', 'tel_client_2','CIN_Num_Client_2', 'PJ_CIN_Client_2_recto', 'PJ_CIN_Client_2_verso', 'montant_reparation', 'motif_reparation','commercial']

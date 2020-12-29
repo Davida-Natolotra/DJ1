@@ -3,28 +3,38 @@ from operation.models import Operation
 # Create your models here.
 class FactureOperation(models.Model):
     idOp = models.ForeignKey(Operation,on_delete=models.CASCADE)
-    OT_Honoraire = models.IntegerField(default=0,blank=True,null=True)
-    Autres_Montant = models.IntegerField(default=0,blank=True,null=True)
-    BAD_Montant = models.IntegerField(default=0,blank=True,null=True)
-    Overstay_Montant = models.IntegerField(blank=True,null=True)
-    Surestaries_Montant = models.IntegerField(blank=True,null=True)
-    Debarquement = models.IntegerField(blank=True,null=True)
-    Magasinage_Montant = models.IntegerField(blank=True,null=True)
-    Droit_Compromis = models.IntegerField(blank=True,null=True)
-    Amende_Montant = models.IntegerField(blank=True,null=True)
-    OV_Montant = models.IntegerField(blank=True,null=True)
-    OV_Docker = models.IntegerField(blank=True,null=True)
-    Montant_Fret = models.IntegerField(blank=True,null=True)
-    Immobilisation = models.IntegerField(blank=True,null=True)
-    Num_Facture = models.CharField(max_length=50,blank=True)
-    Nom_Client = models.CharField(max_length=500,blank=True)
-    Adresse_Client = models.CharField(max_length=500,blank=True)
-    Contact_Client = models.CharField(max_length=500,blank=True)
-    email_client = models.EmailField(max_length=500,blank=True)
-    Date_Facture = models.DateField(auto_now=False,blank=True)
-    SousTotal = models.IntegerField(blank=True,null=True)
-    Tax = models.IntegerField(blank=True,null=True)
-    TotalFacture = models.IntegerField(blank=True,null=True)
-
+    OT_Honoraire = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Autres_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    BAD_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Overstay_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Surestaries_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Debarquement = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Magasinage_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Droit_Compromis = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Amende_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    OV_Montant = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    OV_Docker = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Montant_Fret = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Immobilisation = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Num_Facture = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Nom_Client = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Adresse_Client = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Contact_Client = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    email_client = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Date_Facture = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    SousTotal = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Tax = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    TotalFacture = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
+    Ref = models.IntegerField(blank=True,null=True)
     def __str__(self):
         return self.Nom_Client
+
+class FactureMoto(models.Model):
+    Num_Facture = models.IntegerField(null=True,default=0)
+    def __int__(self):
+        return self.Num_Facture
+
+class BLMoto(models.Model):
+    Num_BL = models.IntegerField(null=True,default=0)
+    def __int__(self):
+        return self.Num_Facture

@@ -1,8 +1,8 @@
 {% extends 'base/main.html'%}
-
+{% load static %}
 {% block content %}
 {% load humanize %}
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Solde</h1>
+<h1 class="h3 mb-4 text-gray-800 text-center">Editer le solde</h1>
 <hr>
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -21,3 +21,19 @@
   </div>
 </form>
 {% endblock  %}
+{% block js %}
+<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
+
+<script type="text/javascript">
+  new Cleave('#id_soldeInitial', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  new Cleave('#id_soldeActuel', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+</script>
+{% endblock js %}

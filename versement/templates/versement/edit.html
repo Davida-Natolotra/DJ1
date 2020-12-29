@@ -1,13 +1,18 @@
-{% extends 'base/main.html'%}
-
+{% extends 'base/blankbone.html'%}
+{% block sidebar %}
+{% include 'base/sidebar.html' %}
+{% endblock sidebar %}
+{% block topbar %}
+{% include 'base/topbar.html' %}
+{% endblock topbar %}
 {% block content %}
 {% load humanize %}
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-motorcycle w3-xlarge w3-margin-right"></i> Moto</h1>
+<h3 class="h3 mb-4 text-gray-800 text-center">{{subtitle}}</h3>
 <hr>
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
   {% csrf_token %}
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-4 pre-scrollable" style="max-height:75vh">
+    <div class="col-md-8 col-lg-4 pre-scrollable" style="max-height:50vh">
       {{ form }}
     </div>
     <hr class="mb-3">
@@ -22,29 +27,7 @@
   </div>
 </form>
 
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content  w3-green">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <span class="fas fa-check-square-o w3-xxxlarge"></span>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body w3-xlarge">
-        Enregistrement effectué!
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        {# <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> #}
-      </div>
-
-    </div>
-  </div>
-</div>
+{% include "base/modal.html" %}
 <script>
   var today = new Date();
   var dd = today.getDate();
@@ -58,7 +41,17 @@
   }
 
   today = yyyy + '-' + mm + '-' + dd;
-  document.getElementById("dateEntree").setAttribute("max", today);
-  document.getElementById("dateVente").setAttribute("max", today);
+  document.getElementById("date").setAttribute("max", today);
 </script>
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+      $("#versementMenu").addClass("active");
+      $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+      $("h3").addClass("text-danger");
+    })
+  </script>
+{% endblock js %}
+
 {% endblock %}

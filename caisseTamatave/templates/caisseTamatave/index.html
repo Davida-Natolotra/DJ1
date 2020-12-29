@@ -1,10 +1,11 @@
 {% extends 'base/main.html'%}
 {% block content %}
 {% load static %}
+{% load l10n %}
+{% localize on %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cash-register w3-xlarge w3-margin-right"></i>Caisse Tamatave</h1>
-<hr>
+
 <div class="card shadow mb-4">
   <div class="card-header mb-4">
     <h6 class="m-0 font-weight-bold w3-text-red">Solde</h6>
@@ -12,7 +13,7 @@
   <div class="card-body">
 
 
-    <div class="row justify-content-lg-start">
+    <div class="row justify-content-lg-start text-gray-800">
       <div class="col-md-6 col-lg-2">
 
         {% for solde in solde %}
@@ -43,7 +44,7 @@
   </div>
   <div class="card-body">
     <div id="toolbar">
-      <button class="btn btn-secondary" onclick="window.location.href='/caisseTamatave/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+      <button class="btn btn-danger" onclick="window.location.href='/caisseTamatave/create'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
 
     </div>
     <div class="table-responsive text-nowrap">
@@ -80,10 +81,9 @@
   </div>
 </div>
 
-{% endblock %}
-
+{% endlocalize %}
+{% endblock content %}
 {% block js %}
-{% load static %}
 <!-- Core plugin JavaScript-->
 <script src="{% static 'base/js/popper.min.js'%}"></script>
 <script src="{% static 'base/js/bootstrap-table.min.js'%}"></script>
@@ -96,6 +96,7 @@
 <script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
 <script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
 <!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+{% include "base/modal.html" %}
 <script type="text/javascript">
   $(function() {
     $('#tableTest1').bootstrapTable({
@@ -122,5 +123,12 @@
     });
   });
 </script>
-
-{% endblock %}
+<script>
+  $(document).ready(function () {
+    $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+    $("#caisseTamataveMenu").addClass("active");
+    $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+    $("h3").addClass("text-danger");
+  })
+</script>
+{% endblock js %}

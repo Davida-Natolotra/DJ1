@@ -7,9 +7,12 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 def indexVersement(request):
     versements = Versement.objects.all()
-    return render(request,'versement/index.html',{'versements':versements})
+    pageTitle = "Versement"
+    return render(request, 'versement/index.html', {'versements': versements, 'pageTitle': pageTitle})
 
 def createVersement(request):
+    pagetitle = "Versement"
+    subtitle = "Nouvelle enregistrement"
     if request.method == 'POST':
         form = VersementForm(request.POST,request.FILES)
         if form.is_valid():
@@ -17,9 +20,11 @@ def createVersement(request):
 
     else:
         form = VersementForm()
-    return render(request,'versement/edit.html',{'form':form})
+    return render(request,'versement/edit.html',{'form':form,'pageTitle':pagetitle,'subtitle':subtitle})
 
 def editVersement(request,pk=None):
+    pageTitle = "Versement"
+    subtitle = "Edition"
     versement = get_object_or_404(Versement, pk=pk)
     if request.method == 'POST':
         form = VersementForm(request.POST,request.FILES,instance=versement)
@@ -29,7 +34,7 @@ def editVersement(request,pk=None):
 
     else:
         form = VersementForm(instance=versement)
-    return render(request,'versement/edit.html',{'form': form})
+    return render(request,'versement/edit.html',{'form': form,'pageTitle':pageTitle,'subtitle':subtitle})
 
 def deleteVersement(request,pk=None):
     versement = get_object_or_404(Versement,pk=pk)
