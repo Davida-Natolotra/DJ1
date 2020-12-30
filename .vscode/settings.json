@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "DBDJ1",
+            "database": "${workspaceFolder:DJ1}/db.sqlite3",
+            "group": "LocalSQL"
+        }
+    ],
+    "sqltools.useNodeRuntime": true,
+    "git.ignoreLimitWarning": true,
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.banditEnabled": false,
+    "python.linting.prospectorEnabled": true
+}

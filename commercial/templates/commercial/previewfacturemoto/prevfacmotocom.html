@@ -1,0 +1,19 @@
+{% extends 'base/blankbone.html' %}
+{% load static %}
+{% block topbar %}
+{% include 'base/topbar.html' %}
+{% endblock topbar %}
+{% block content %}
+{% include 'commercial/previewfacturemoto/prevfactmotowredircom.html' %}
+{% endblock content %}
+{% block js %}
+<script src="{% static 'facture/js/jszip.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/kendo.all.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/script.js' %}" charset="utf-8"></script>
+<script>
+$(document).ready(function(){
+$('#pageTitle').addClass("fas fa-motorcycle fa-fw w3-margin-right")
+
+})
+</script>
+{% endblock js %}

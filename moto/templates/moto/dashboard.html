@@ -1,0 +1,721 @@
+{% load static %}
+{% load l10n %}
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
+<div class="">
+  <h1 class="h3 mb-2 text-gray-800">Tableau de bord</h1>
+</div><br>
+<div class="row">
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Niveau de stock</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" id="stock"></div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-warehouse fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Dernier id</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idMotoLast">{{lastID}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-swatchbook fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Dernier numero facture</div>
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="numFactureLast">{{lastFacture}}</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-file-invoice fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Requests Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Dernier numero BL</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" id="numBLlast">{{lastBL}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-file-invoice fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+
+  <!-- Area Chart -->
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Vente journalière</h6>
+        <form class="form-inline" aria-labelledby="dropdownMenuLink">
+          <select id="scopeChange" class="form-control w3-margin-right">
+            <option value="hebdomadaire">Hebdomadaire</option>
+            <option value="mensuel">Mensuelle</option>
+          </select>
+          <input type="date" class="form-control-sm w3-border-ligth-gray" id="date-hebdo" style="border-width:1px!important">
+          <select id="date-mensuel" class="form-control">
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Aout</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+          </select>
+        </form>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Vente annuelle</h6>
+        <form class="form-inline" aria-labelledby="dropdownMenuLink">
+          <select id="chartChange" class="form-control">
+            <option value="mensuel">Mensuelle</option>
+            <option value="trimestriel">Trimestrielle</option>
+            <option value="semestriel">Semestrielle</option>
+          </select>
+        </form>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area">
+          <canvas id="multiChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- DataTables Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Table de recapitulation</h6>
+  </div>
+  <div class="card-body">
+    <div id="toolbar">
+      <button class="btn btn-primary" onclick="window.location.href='/moto/create'"><i
+          class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+
+    </div>
+    {% localize on %}
+    <div class="table table-responsive text-nowrap">
+      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true"
+        data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true"
+        data-pagination="true" data-sortable="true" data-sort-name='ID_Moto' data-sort-order='asc'
+        data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true"
+        data-toolbar="#toolbar">
+        <thead class="thead-light">
+          <tr>
+            <th data-sortable="true" data-field="ID_Moto">Ref</th>
+            <th data-sortable="false">Date d’entrée</th>
+            <th data-sortable="true" data-field="nom_moto">Nom moto</th>
+            <th data-sortable="true">Num moteur</th>
+            <th data-sortable="true">FRN</th>
+            <th data-sortable="false">PA</th>
+            <th data-sortable="false">PV</th>
+            <th data-sortable="false">Date de vente</th>
+            <th data-sortable="true">Nom du client 1</th>
+            <th data-sortable="true">Tel client 1</th>
+            <th data-sortable="true">Num BL</th>
+            <th data-sortable="true">Num facture</th>
+            <th data-sortable="false">Nom sur facture</th>
+            <th data-sortable="false">Tel client 2</th>
+            <th data-sortable="false">Montant reparation</th>
+            <th>Option</th>
+          </tr>
+        </thead>
+
+        <tbody class="text-gray-800">
+          {% for i in motos %}
+          {% if  i.num_BL != None%}
+          <tr class="w3-pale-yellow">
+            <td class="text-right">{{i.ID_Moto}}</td>
+            <td>{{i.date_entree}}</td>
+            <td>{{i.nom_moto}}</td>
+            <td>{{i.num_moteur}}</td>
+            <td>{{i.FRN}}</td>
+            <td class="text-right">{{i.PA}}</td>
+            <td class="text-right">{{i.PV}}</td>
+            <td>{{i.date_vente}}</td>
+            <td>{{i.nom_client_1}}</td>
+            <td>{{i.tel_client_1}}</td>
+            <td>{{i.num_BL}}</td>
+            <td>{{i.num_sur_facture}}</td>
+            <td>{{i.nom_client_2}}</td>
+            <td>{{i.tel_client_2}}</td>
+            <td class="text-right">{{i.montant_reparation}}</td>
+
+            {% if i.archive == False %}
+            <td>
+              <a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success" data-toggle="tooltip"
+                title="Editer"><i class="fas fa-edit fa-fw"></i></a>
+              <a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
+                class="btn btn-circle btn-info"><b>F</b></a>
+              <a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning" data-toggle="tooltip"
+                title="BL"><b>B</b></a>
+
+              <a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
+                  class="fas fa-trash fa-fw"></i></a>
+            </td>
+            {% elif i.archive == True %}
+            <td>
+              <a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary" data-toggle="tooltip"
+                title="Details"><i class="fas fa-file-archive fa-fw"></i>Details</a>
+              <a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info" data-toggle="tooltip"
+                title="Facture"><b>F</b></a>
+              <a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning" data-toggle="tooltip"
+                title="BL"><b>B</b></a>
+            </td>
+
+            {% endif %}
+
+          </tr>
+          {% elif i.num_sur_facture != None %}
+          <tr class="w3-pale-blue">
+            <td class=" text-right">{{i.ID_Moto}}</td>
+            <td>{{i.date_entree}}</td>
+            <td>{{i.nom_moto}}</td>
+            <td>{{i.num_moteur}}</td>
+            <td>{{i.FRN}}</td>
+            <td class="text-right">{{i.PA}}</td>
+            <td class="text-right">{{i.PV}}</td>
+            <td>{{i.date_vente}}</td>
+            <td>{{i.nom_client_1}}</td>
+            <td>{{i.tel_client_1}}</td>
+            <td>{{i.num_BL}}</td>
+            <td>{{i.num_sur_facture}}</td>
+            <td>{{i.nom_client_2}}</td>
+            <td>{{i.tel_client_2}}</td>
+            <td class="text-right">{{i.montant_reparation}}</td>
+            {% if i.archive == False %}
+            <td>
+              <a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success" data-toggle="tooltip"
+                title="Editer"><i class="fas fa-edit fa-fw"></i></a>
+              <a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
+                class="btn btn-circle btn-info"><b>F</b></a>
+              <a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning" data-toggle="tooltip"
+                title="BL"><b>B</b></a>
+
+              <a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
+                  class="fas fa-trash fa-fw"></i></a>
+            </td>
+            {% elif i.archive == True %}
+            <td>
+              <a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary" data-toggle="tooltip"
+                title="Details"><i class="fas fa-file-archive fa-fw"></i>Details</a>
+              <a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info" data-toggle="tooltip"
+                title="Facture"><b>F</b></a>
+              <a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning" data-toggle="tooltip"
+                title="BL"><b>B</b></a>
+            </td>
+
+            {% endif %}
+
+          </tr>
+
+          {% else %}
+          <tr>
+            <td class=" text-right">{{i.ID_Moto}}</td>
+            <td>{{i.date_entree}}</td>
+            <td>{{i.nom_moto}}</td>
+            <td>{{i.num_moteur}}</td>
+            <td>{{i.FRN}}</td>
+            <td class="text-right">{{i.PA}}</td>
+            <td class="text-right">{{i.PV}}</td>
+            <td>{{i.date_vente}}</td>
+            <td>{{i.nom_client_1}}</td>
+            <td>{{i.tel_client_1}}</td>
+            <td>{{i.num_BL}}</td>
+            <td>{{i.num_sur_facture}}</td>
+            <td>{{i.nom_client_2}}</td>
+            <td>{{i.tel_client_2}}</td>
+            <td class="text-right">{{i.montant_reparation}}</td>
+            <td>
+              <a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success" title="Editer"><i
+                  class="fas fa-edit fa-fw"></i></a>
+              <a href="{% url 'editFactureMoto' id=i.pk %}" class="btn btn-circle btn-info" title="Facture"><b>F</b></a>
+              <a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning" title="BL"><b>B</b></a>
+              <a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger" title="Supprimer"><i
+                  class="fas fa-trash fa-fw"></i></a>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endlocalize %}
+  </div>
+</div>
+{% block js %}
+<!-- Core plugin JavaScript-->
+<script src="{% static 'base/js/popper.min.js'%}"></script>
+<script src="{% static 'base/js/bootstrap-table.min.js'%}"></script>
+
+<!-- Custom script for this page -->
+<script src="{% static 'base/js/bootstrap-table-fixed-columns.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-export.min.js' %}"></script>
+<script src="{% static 'base/js/tableExport.min.js' %}"></script>
+<script src="{% static 'base/js/jspdf.min.js'%}"></script>
+<script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
+<!-- Page level plugins -->
+<script src="{% static 'base/vendor/chart.js/Chart.min.js' %}"></script>
+
+{% comment %}
+<!-- Page level custom scripts -->
+<script src="{% static 'base/js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'base/js/demo/chart-pie-demo.js' %}"></script> {% endcomment %}
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+{% include "base/modal.html" %}
+<script type="text/javascript">
+  $(function () {
+    $('#tableTest1').bootstrapTable({
+      height: $(window).height(),
+      onAll: function (name, args) {
+        fixleftwidth()
+      }
+    });
+
+    function fixleftwidth() {
+      setTimeout(function () {
+        var fixColumnTds = $(".fixed-table-body-columns tr:first-child td");
+        var fixNum = fixColumnTds.length;
+        var tableBody = $(".fixed-table-body tbody tr:first-child td");
+        for (var i = 0; i < fixNum; i++) {
+          fixColumnTds.eq(i).width(tableBody.eq(i).width())
+        }
+      }, 0)
+    }
+    fixleftwidth()
+    $(window).resize(function () {
+      $('#tableTest1').bootstrapTable('resetView');
+      fixleftwidth()
+    });
+  });
+
+  function detailFormatter(index, row) {
+    var html[]
+    $.each(row, function (key, value) {
+      html.push('<p><b>' + key + ':<:/b>' + value + '</p>')
+    })
+    return html.join('')
+  }
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fa-motorcycle fa-fw w3-margin-right");
+    $("#motoMenu").addClass("active")
+  })
+</script>
+<script type="text/javascript">
+  Date.prototype.toDateInputValue = (function () {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  })
+  $(document).ready(function () {
+    var send = "Send"
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'topbar'%}",
+      data: {
+        "send": send,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        var numFactureLast = response.numFactureLast;
+        console.log("numFactureLast = " + numFactureLast);
+        var stock = response.stock;
+        var idMotoLast = response.idMotoLast;
+        var numBLlast = response.numBLlast;
+        var notification = response.notification;
+        var counter = response.counter;
+        document.getElementById("stock").innerHTML = stock;
+        document.getElementById("idMotoLast").innerHTML = idMotoLast;
+        document.getElementById("numFactureLast").innerHTML = numFactureLast;
+        document.getElementById("numBLlast").innerHTML = numBLlast;
+      },
+      error: function (response) {
+        console.log("ERROR" + response);
+      }
+    });
+    $("#date-hebdo").val(new Date().toDateInputValue());
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    let datehebdo = $("#date-hebdo").val();
+    let scopeChange = $("#scopeChange").val();
+    let dateMensuel = $("#date-mensuel").val();
+    console.log("datehebdo = " + datehebdo);
+    if (scopeChange === "hebdomadaire") {
+      $("#date-mensuel").hide();
+      $("#date-hebdo").show();
+    } else if (scopeChange === "mensuel") {
+      $("#date-mensuel").show();
+      $("#date-hebdo").hide();
+    }
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'chart'%}",
+      data: {
+        "datehebdo": datehebdo,
+        "scopeChange": scopeChange,
+        "dateMensuel": dateMensuel,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        console.log(response.date);
+        console.log(response.data);
+        if ($("#scopeChange").val() === "hebdomadaire") {
+          let dateresponse = response.date;
+          let dataresponse = response.data;
+          chartHebdo(dateresponse, dataresponse);
+        } else if ($("#scopeChange").val() === "mensuel") {
+          let dateresponse = response.jourMois;
+          let dataresponse = response.nombMois;
+          chartHebdo(dateresponse, dataresponse);
+        }
+
+
+
+        if ($("#chartChange").val() === "mensuel") {
+          let dateMensuel = response.month;
+          let dataMensuel = response.datamonth;
+          let title = 'Vente mensuelle'
+          let type = 'line';
+          multiChart(dateMensuel, dataMensuel, title, type);
+        } else if ($("#chartChange").val() === "trimestriel") {
+          let trimestre = response.trimestre;
+          let datatrimestre = response.datatrimestre;
+          let title = 'Vente trimestrielle';
+          let type = 'line';
+          multiChart(trimestre, datatrimestre, title, type);
+        } else {
+          let semestre = response.semestre;
+          let datasemestre = response.datasemestre;
+          let title = 'Vente semestrielle'
+          let type = 'bar';
+          multiChart(semestre, datasemestre, title, type);
+        }
+      },
+      error: function (response) {
+        console.log("ERROR" + response);
+      }
+    })
+  })
+  $("#scopeChange,#date-hebdo,#date-mensuel").change(function () {
+    let datehebdo = $("#date-hebdo").val();
+    let scopeChange = $("#scopeChange").val();
+    let dateMensuel = $("#date-mensuel").val();
+    console.log("dateMensuel = " + dateMensuel);
+    if (scopeChange === "hebdomadaire") {
+      $("#date-mensuel").hide();
+      $("#date-hebdo").show();
+    } else if (scopeChange === "mensuel") {
+      datehebdo = "2020-01-01";
+      $("#date-mensuel").show();
+      $("#date-hebdo").hide();
+    }
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'chart'%}",
+      data: {
+        "datehebdo": datehebdo,
+        "scopeChange": scopeChange,
+        "dateMensuel": dateMensuel,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        console.log(response.date);
+        console.log(response.data);
+        if ($("#scopeChange").val() === "hebdomadaire") {
+          let dateresponse = response.date;
+          let dataresponse = response.data;
+          chartHebdo(dateresponse, dataresponse);
+        } else if ($("#scopeChange").val() === "mensuel") {
+          let dateresponse = response.jourMois;
+          let dataresponse = response.nombMois;
+          chartHebdo(dateresponse, dataresponse);
+        }
+
+      },
+      error: function (response) {
+        console.log("ERROR" + response);
+      }
+    })
+  })
+  $("#chartChange").change(function () {
+    var datehebdo = $("#date-hebdo").val()
+    console.log("datehebdo = " + datehebdo)
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'chart'%}",
+      data: {
+        "datehebdo": datehebdo,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        console.log(response.date);
+        console.log(response.data);
+        if ($("#chartChange").val() === "mensuel") {
+          let dateMensuel = response.month;
+          let dataMensuel = response.datamonth;
+          let title = 'Vente mensuelle'
+          let type = 'line';
+          multiChart(dateMensuel, dataMensuel, title, type);
+        } else if ($("#chartChange").val() === "trimestriel") {
+          let trimestre = response.trimestre;
+          let datatrimestre = response.datatrimestre;
+          let title = 'Vente trimestrielle';
+          let type = 'line';
+          multiChart(trimestre, datatrimestre, title, type);
+        } else {
+          let semestre = response.semestre;
+          let datasemestre = response.datasemestre;
+          let title = 'Vente semestrielle'
+          let type = 'bar';
+          multiChart(semestre, datasemestre, title, type);
+        }
+      },
+      error: function (response) {
+        console.log("ERROR" + response);
+      }
+    })
+  })
+
+  function chartHebdo(labels, data) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Vente journalière',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
+  function multiChart(labels, data, title, type) {
+    var ctx = document.getElementById('multiChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: type,
+      data: {
+        labels: labels,
+        datasets: [{
+          label: title,
+          data: data,
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          borderWidth: 2
+
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
+  function pieChart(labels, data) {
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: ['#4e73df', '#1cc88a'],
+          hoverBackgroundColor: ['#2e59d9', '#17a673'],
+          hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false
+        },
+        cutoutPercentage: 80,
+      },
+    });
+  }
+</script>
+{% endblock js %}

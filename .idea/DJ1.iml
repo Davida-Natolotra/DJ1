@@ -19,5 +19,20 @@
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/moto/templates" />
+        <option value="$MODULE_DIR$/base/templates" />
+        <option value="$MODULE_DIR$/caisseTamatave/templates" />
+        <option value="$MODULE_DIR$/caisseTana/templates" />
+        <option value="$MODULE_DIR$/commercial/templates" />
+        <option value="$MODULE_DIR$/compagnie/templates" />
+        <option value="$MODULE_DIR$/exportateur/templates" />
+        <option value="$MODULE_DIR$/facture/templates" />
+        <option value="$MODULE_DIR$/importateur/templates" />
+        <option value="$MODULE_DIR$/operation/templates" />
+        <option value="$MODULE_DIR$/versement/templates" />
+      </list>
+    </option>
   </component>
 </module>

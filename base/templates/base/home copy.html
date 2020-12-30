@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Home page</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="{% static '/base/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template-->
+  <link href="{% static '/base/css/sb-admin-2.min.css'%}" rel="stylesheet">
+  <link href="{% static '/base/css/w3.css'%}" rel="stylesheet">
+  
+  <style media="screen">
+    #Wrapper {
+      background-image: url("{% static '/base/assets/BG_BW_Comp.jpg' %}");
+      background-repeat: no-repeat;
+      background-position: right bottom;
+      background-size:contain;}
+
+    .bg-gradient-image{
+  background-image: url("{% static '/base/assets/BG_BW_Comp.jpg' %}");
+  background-size: cover;
+    }  
+  </style>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="Wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+
+        {% include 'base/topbar.html'%}
+
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-4 text-gray-800"><img src="{% static 'base/assets/Logo2.png'%}" alt="" class="w3-margin-left" style="height: 5vh;"> Bienvenue</h1>
+          <hr class="w3-border-grey">
+
+
+          <div class="row">
+            <button class="btn w3-border-indigo w3-hover-indigo text-primary col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/moto'"><i class="fas fa-motorcycle w3-xxxlarge"></i><br>Moto</button>
+
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/caisseTana'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
+              Tana</button>
+
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/caisseTamatave'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
+              Tamatave</button>
+
+            <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/versement'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Versement</button>
+
+            <button class="btn w3-border-blue w3-hover-blue w3-text-blue col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/importateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Importateur</button>
+
+            <button class="btn w3-border-blue w3-hover-blue w3-text-blue col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/exportateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Exportateur</button>
+            <button class="btn w3-border-blue w3-hover-blue w3-text-blue col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/compagnie'"><i class="fas fa-building w3-xxxlarge"></i><br>Compagnie</button>
+
+            <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/operation'"><i class="fas fa-cogs w3-xxxlarge"></i><br>Operation</button>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Studio 41 - 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static '/base/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static '/base/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static '/base/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static '/base/js/sb-admin-2.min.js' %}"></script>
+  
+  <script>
+    $("#pageTitle").addClass("fas fa-building fa-fw w3-margin-right");
+    $("h3").addClass("text-gray-800");
+  </script>
+</body>
+
+</html>

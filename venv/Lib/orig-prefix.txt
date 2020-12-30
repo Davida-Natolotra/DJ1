@@ -1,0 +1,1 @@
+c:\bitnami\django~1.4-0\python

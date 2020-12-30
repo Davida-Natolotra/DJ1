@@ -1,0 +1,246 @@
+{% load static %}
+{% load l10n %}
+<!DOCTYPE html>
+<html lang="en">
+{% localize on %}
+<head>
+    <meta charset="utf-8">
+    <title>Example 2</title>
+        <link rel="stylesheet" href="../base/static/base/css/bootstrap.min.css">
+    <style>
+        @page {
+            size: a4 portrait;
+
+            @frame content_frame {
+                /* Content Frame */
+                left: 50pt;
+                width: 512pt;
+                top: 90pt;
+                height: 632pt;
+                {% comment %} height: 850pt; {% endcomment %}
+            }
+
+            @frame footer_frame {
+                /* Another static Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt;
+                width: 512pt;
+                top: 772pt;
+                height: 20pt;
+            }
+            @font-face {
+            font-family: sans-serif;
+        }
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            color: #0087C3;
+            text-decoration: none;
+        }
+
+        body {
+            position: relative;
+            width: 21cm;
+            height: 29.7cm;
+            margin: 0 auto;
+            color: #555555;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        #logo {
+            float: left;
+            margin-top: 8px;
+        }
+
+        #logo img {
+            height: 170px;
+            width: 200px;
+        }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+
+        #details {
+            margin-bottom: 50px;
+        }
+
+        #client {
+            float: left;
+        }
+
+        #client .to {
+            color: #777777;
+        }
+
+        h2.name {
+            font-size: 1.4em;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        #invoice {
+            float: right;
+            text-align: right;
+        }
+
+        #invoice h1 {
+            font-size: 2.4em;
+            line-height: 1em;
+            font-weight: normal;
+            margin: 0 0 10px 0;
+        }
+
+        #invoice .date {
+            font-size: 1.1em;
+            color: #777777;
+        }
+
+        table.Facture,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table.Facture,
+        td.last {
+            border-left-width: 0px;
+            border-bottom-width: 0px;
+            border: 0px;
+        }
+        }
+
+       
+
+        
+    </style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">
+        Les marchandises vendues ne sont ni reprises ni échangées.
+    </div>
+
+    <!-- HTML Content -->
+    <header class="clearfix">
+    <table class="thead">
+    <tr style="height:200px">
+    <td style="border:0px">        <div id="logo">
+            <img src="../static/LogoTIA.jpeg" alt="Image" class="img">
+        </div>
+    </td>
+    <td style="border:0px">        <div id="company">
+            <h2 class="name">TIA MOTO SARLU</h2>
+            <div>Ny Tsara Indrindra hAtrany</div>
+            <div>Siège social: Lot IVX 72B Bis Ankazomanga</div>
+            <div>Vente de scooter occasion et accessoires</div>
+            <div>Tél: 0330393155</div>
+            <div>NIF: 2004105069</div>
+            <div>Stat: 46101112020010758</div>
+            <div>RCS: 2020 B 00714</div>
+        </div>
+    </td>
+    </tr>
+    </table>
+
+
+        </div>
+    </header>
+
+    <h1 style="text-align:center">FACTURE</h1>
+    <hr>
+    <main>
+        <div id="details" class="clearfix">
+            <div id="client">
+                <div class="text-gray-light">FACTURÉ À:</div>
+                <h4 class="to">{{Facture.nom_client_2}}</h4>
+                <div class="address">CIN - {{Facture.CIN_Num_Client_2}}</div>
+                <div class="email">{{Facture.adresse_client_2}}</div>
+                <div class="contacts">
+                    {{Facture.tel_client_2}}
+                </div>
+            </div>
+            <div id="invoice">
+                <h4>N°<span id='factnum'>{{Facture.num_sur_facture}}</span></h4>
+                <div class="date">Date: <span>{{Facture.date_vente}}</span></div>
+            </div>
+        </div>
+        <table class="Facture">
+            <thead>
+                <tr>
+                    <th style="width:10%;text-align:center"><b>Ref</b></th>
+                    <th style="width:30%"><b>DESIGNATION</b></th>
+                    <th style="text-align:center"><b>PU HT</b></th>
+                    <th style="text-align:center"><b>TVA</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{Facture.Ref}}</td>
+                    <td style="padding-top:0px">
+                        <p>
+                            {{Facture.nom_moto}}
+                        </p>
+                        <p>Moteur n°</p>
+                        <p><b>{{Facture.num_moteur}}</b></p>
+                        <p>{{Facture.volume_moteur}}</p>
+                    </td>
+                    <td style="text-align:right">{{Facture.PU_HT}} Ar</td>
+                    <td style="text-align:right">{{Facture.TVA}} Ar</td>
+                </tr>
+            </tbody>
+            <tfoot style="border:none!important">
+                <tr>
+                    <td colspan="2" class="last"></td>
+                    <td colspan="1" style="border:1px solid black">PRIX TOTAL TTC</td>
+                    <td style="border:1px solid black;text-align:right">{{Facture.PV}}
+                        Ar</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <br>
+        <table style="width:100%">
+            <tr>
+                <td style="text-align:center">
+                    {{Facture.montant_lettre}}
+
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table style="width:100%" class="borderless">
+            <tr border="0">
+                <td style="text-align:center;border:0px">Vendeur</td>
+                <td style="text-align:center;border:0px">Client</td>
+            </tr>
+        </table>
+</body>
+{%endlocalize%} 
+</html>

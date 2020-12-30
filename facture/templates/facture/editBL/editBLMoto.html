@@ -1,0 +1,102 @@
+{% extends 'base/blankbone.html'%}
+{% if request.user.is_staff %}
+{% block sidebar %}
+{% include "base/sidebar.html" %}
+{% endblock sidebar %}
+{% endif %}
+{% block topbar %}
+{% include "base/topbar2.html" %}
+{% endblock topbar %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+{% load l10n %}
+{% include "facture/editBL/editBLMotoWredir.html" %}
+{% endblock content %}
+{% block js %}
+{% include "base/modal.html" %}
+<script src="{% static 'facture/js/jszip.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/kendo.all.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/script.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/calcul.js' %}" charset="utf-8"></script>
+<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
+<script type="text/javascript">
+  // KajyMoto
+  var PT = parseFloat($("#id_PV").val().replace(/ /g, ''));
+  // console.log("PT test = " + PT);
+  if (!$("#id_PV").val()) {
+    PT = 0;
+  }
+
+  var PUHT = PT / 1.2;
+  var TVA = 0.2 * PUHT;
+  document.getElementById('id_PU_HT').value = PUHT;
+  document.getElementById('id_TVA').value = TVA;
+  this.id_PV = new Cleave('#id_PV', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_PU_HT = new Cleave('#id_PU_HT', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  this.id_TVA = new Cleave('#id_TVA', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  $(document).change(function () {
+    let PT = parseFloat($("#id_PV").val().replace(/ /g, ''));
+    console.log("PT test = " + PT);
+    if (!$("#id_PV").val()) {
+      PT = 0;
+    }
+    let PUHT = PT / 1.2;
+    let TVA = 0.2 * PUHT;
+    document.getElementById('id_PU_HT').value = PUHT;
+    document.getElementById('id_TVA').value = TVA;
+
+    this.id_PV = new Cleave('#id_PV', {
+      numeral: true,
+      numeralDecimalMark: '.',
+      delimiter: ' '
+    });
+    this.id_PU_HT = new Cleave('#id_PU_HT', {
+      numeral: true,
+      numeralDecimalMark: '.',
+      delimiter: ' '
+    });
+    this.id_TVA = new Cleave('#id_TVA', {
+      numeral: true,
+      numeralDecimalMark: '.',
+      delimiter: ' '
+    });
+    console.log("test being");
+  })
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#pageTitle').addClass('fas fa-motorcycle fa-fw w3-margin-right');
+  })
+</script>
+<script>
+{% if messages %}
+  {% for message in messages %}
+  var message = "{{message}}"
+  if (message === "success") {
+      $('#preview').removeClass("disabled")
+    }
+  {% endfor %}
+{% endif %}
+  $('#id_volume_moteur').attr('required', 'true');
+  $('#id_nom_client_1').attr('required', 'true');
+  $('#id_CIN_Num_Client_1').attr('required', 'true');
+  $('#id_tel_client_1').attr('required', 'true');
+  $('#id_num_sur_facture').attr('required', 'true');
+  $('#id_date_vente').attr('required', 'true');
+  $('#id_num_BL').attr('required', 'true');
+  $('#motoMenu').addClass("active");
+</script>
+{% endblock js %}
