@@ -10,10 +10,11 @@ from exportateur.models import Exportateur
 from importateur.models import Importateur
 from compagnie.models import Compagnie
 
+pageTitle = "Operation"
 # Create your views here.
 def indexOperation(request):
     operations = Operation.objects.all()
-    pageTitle = "Operation"
+    
     context = {
         'operations':operations,
         'pageTitle':pageTitle
@@ -45,7 +46,12 @@ def editReception(request,pk=None):
 
     else:
         form = ReceptionForm(instance=operation)
-    return render(request,'operation/editReception.html',{'form':form,'id':operation.Reference_Reception})
+    context = {
+        'form':form,
+        'id':operation.Reference_Reception,
+        'pageTitle':pageTitle
+    }
+    return render(request,'operation/editReception.html',context)
 
 def deleteOperation(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)

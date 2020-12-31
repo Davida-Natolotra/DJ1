@@ -38,7 +38,7 @@ def createMoto(request):
             messages.error(request, 'error')
     else:
         form = MotoForm()
-        message = "new"
+        
     return render(request, 'moto/create.html', {'form': form, 'pageTitle': pageTitle})
 
 
