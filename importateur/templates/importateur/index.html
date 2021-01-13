@@ -3,10 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-ship w3-xlarge w3-margin-right"></i>Importateur</h1>
-<hr>
 
-<br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
@@ -109,6 +106,11 @@
       fixleftwidth()
     });
   });
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fas fa-ship fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#importateurMenu").addClass("active")
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+})
 </script>
 
 {% endblock %}

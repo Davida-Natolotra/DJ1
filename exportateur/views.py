@@ -4,10 +4,15 @@ from django.http import HttpResponseRedirect
 from exportateur.form import ExportateurForm
 from django.core.files.storage import FileSystemStorage
 
+pageTitle = 'Exportateur'
 # Create your views here.
 def indexExportateur(request):
     exportateurs = Exportateur.objects.all()
-    return render(request,'exportateur/index.html',{'exportateurs':exportateurs})
+    context = {
+        'exportateurs':exportateurs,
+        'pageTitle':pageTitle
+        }
+    return render(request,'exportateur/index.html',context)
 
 def createExportateur(request):
     if request.method == 'POST':
@@ -17,7 +22,7 @@ def createExportateur(request):
             return HttpResponseRedirect('/exportateur')
     else:
         form = ExportateurForm()
-    return render(request,'exportateur/edit.html',{'form':form})
+    return render(request,'exportateur/edit.html',{'form':form,'pageTitle':pageTitle})
 
 def editExportateur(request,pk=None):
     exportateur = get_object_or_404(Exportateur, pk=pk)
@@ -29,7 +34,7 @@ def editExportateur(request,pk=None):
 
     else:
         form = ExportateurForm(instance=exportateur)
-    return render(request,'exportateur/edit.html',{'form': form})
+    return render(request,'exportateur/edit.html',{'form': form,'pageTitle':pageTitle})
 
 def deleteExportateur(request,pk=None):
     exportateur = get_object_or_404(Exportateur,pk=pk)

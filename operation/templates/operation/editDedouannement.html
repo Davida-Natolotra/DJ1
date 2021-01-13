@@ -2,27 +2,35 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'operation/css/opstyle.css' %}">
-
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation n°{{id}}</h1>
-<hr>
-<div class="row justify-content-center">
-	<div class="col-md-8 col-lg-8">
-		<div class="w3-display-container w3-padding-24">
-			<div class="w3-display-left">
-				<h2>Dedouannement</h2>
-			</div>
-			<div class="w3-display-right">
-				<button class="btn btn-secondary" onclick="toggle()">Toggle</button>
-				<button class="btn btn-secondary" onclick="reduce()">Reduire tout</button>
-			</div>
+<div class="row justify-content-center align-bottom">
+	<div class="col-md-10 col-lg-6">
+	  <div class="w3-display-container w3-padding-24">
+		<div class="w3-display-left">
+		  <ul class="nav nav-tabs w3-border-0">
+			<li class="w3-margin-right" style="cursor: pointer;" id="linkReception">
+			  <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-light-green w3-hover-border-light-green"><span>Réception</span></h4>
+			</li>
+			<li class="w3-margin-right" style="cursor: pointer;" id="linkPreparation">
+				<h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-purple w3-hover-border-purple">Préparation</h4>
+			  </li>
+			<li class="w3-margin-right">
+			  <h4
+				class="w3-bottombar w3-border-pink w3-text-pink">
+				Dédouannement</h4>
+			</li>
+		  </ul>
 		</div>
+		<div class="w3-display-right">
+		  <button class="btn btn-secondary" onclick="toggle()"><i class="fas fa-toggle-on" id="btnToggle"></i></button>
+		  <button class="btn btn-secondary" onclick="reduce()"><i class="fas fa-angle-double-up"></i></button>
+		</div>
+	  </div>
 	</div>
-</div>
-<br>
+  </div>
 <form class="form-group" action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div class="row justify-content-center">
-		<div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:60vh">
+		<div class="col-md-10 col-lg-6 pre-scrollable text-gray-800" style="max-height:60vh" id="contForm">
 			{% include "operation/DedCompany.html" %}
 			{% include "operation/DedMICTSL.html" %}
 			{% include "operation/DedDouane.html" %}
@@ -42,7 +50,7 @@
 		<div class=""><br>
 			<a href="/operation/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
 
-			<button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+			<button class=" btn btn-success" type="submit"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
 
 		</div>
 	</div>
@@ -52,7 +60,7 @@
 {% block js %}
 <script src="{% static 'operation/js/front-end-dedouannement.js' %}"></script>
 
-
+{% include 'base/modal.html'%}
 <script>
 	// Date filter
 	$(document).ready(function() {
@@ -171,7 +179,26 @@
 			document.getElementById("id_OV_Num_Compte").value = "00010 035659 201 01"
 		}
 	})
-
-
+	$("#linkReception").click(()=>{
+		let ids = {{ref}}
+		console.log(ids)
+		let url = "{% url 'editReception' pk=123 %}"
+		document.location.href = url.replace('123',ids)
+	  })
+	  $("#linkPreparation").click(()=>{
+		let ids = {{ref}}
+		console.log(ids)
+		let url = "{% url 'editPreparation' pk=123 %}"
+		document.location.href = url.replace('123',ids)
+	  })
+	  $(document).ready(function () {
+		$("#pageTitle").addClass("fas fa-cogs fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+		$("#operationMenu").addClass("active");
+		$("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+		if (window.innerWidth < 1200){
+			$("h4").addClass("w3-medium");
+			document.getElementById("contForm").style.maxHeight = '50vh'
+		  }
+	});  
 </script>
 {% endblock js %}

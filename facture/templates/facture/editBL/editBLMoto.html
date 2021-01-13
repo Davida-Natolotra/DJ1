@@ -1,9 +1,7 @@
 {% extends 'base/blankbone.html'%}
-{% if request.user.is_staff %}
 {% block sidebar %}
-{% include "base/sidebar.html" %}
+{% include 'base/sidebar.html' %}
 {% endblock sidebar %}
-{% endif %}
 {% block topbar %}
 {% include "base/topbar2.html" %}
 {% endblock topbar %}
@@ -98,5 +96,18 @@
   $('#id_date_vente').attr('required', 'true');
   $('#id_num_BL').attr('required', 'true');
   $('#motoMenu').addClass("active");
+
+          $("#linkEdition").click(() => {
+            let ids = {{pk}}
+                console.log(ids)
+            let url = "{% url 'editMoto' pk=123 %}"
+            document.location.href = url.replace('123', ids)
+        })
+        $("#linkFacture").click(() => {
+            let ids = {{pk}}
+                console.log(ids)
+            let url = "{% url 'editFactureMoto' id=123 %}"
+            document.location.href = url.replace('123', ids)
+        })
 </script>
 {% endblock js %}

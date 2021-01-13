@@ -3,9 +3,17 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation</h1>
-<hr>
 
+<style>
+  [disabled~="disabled"] {
+    background-color: gray !important;
+  }
+
+  .disabled {
+    background-color: gray !important;
+
+  }
+</style>
 <br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -13,16 +21,51 @@
     <h6 class="m-0 font-weight-bold w3-text-red">Table de recapitulation</h6>
   </div>
   <div class="card-body">
-    <div id="toolbar">
-      <button class="btn btn-secondary" onclick="window.location.href='/operation/createReception'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
-
+    <div id="toolbar" class="">
+      <a href="{% url 'createReception'%}" class="btn btn-primary btn-icon-split" data-toggle="tooltip"
+        title="Nouvelle enregistrement">
+        <span class="icon text-white">
+          <i class="fas fa-plus-circle"></i>
+        </span>
+        <span class="text" id="newRec">Nouvelle enregistrement</span>
+      </a>
+      <button disabled="disabled" class="btn w3-light-green btn-icon-split disabled" id="btnReception"
+        data-toggle="tooltip" title="Réception">
+        <span class="icon text-white">
+          <i class="fas fa-inbox"></i>
+        </span>
+        <span class="text text-white" id="edReception">Réception</span></button>
+      <button disabled="disabled" class="btn w3-purple btn-icon-split disabled" id="btnPreparation"
+        data-toggle="tooltip" title="Préparation">
+        <span class="icon text-white">
+          <i class="fas fa-inbox"></i>
+        </span>
+        <span class="text" id="edPreparation">Préparation</span></button>
+      </button>
+      <button disabled="disabled" class="btn w3-pink btn-icon-split disabled" id="btnDedouanement" data-toggle="tooltip"
+        title="Dédouannement">
+        <span class="icon text-white">
+          <i class="fas fa-ship"></i>
+        </span>
+        <span class="text" id="edDedouannement">Dédouannement</span></button>
+      </button>
+      <button disabled="disabled" class="btn w3-red btn-icon-split disabled" id="btnDelete" data-toggle="tooltip"
+        title="Supprimer">
+        <span class="icon text-white">
+          <i class="fas fa-trash"></i>
+        </span>
+        <span class="text" id="edSupprimer">Supprimer</span></button>
+      </button>
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
-        data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
+      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-toggle="table"
+        data-show-columns="true" data-pagination="true" data-sortable="true" data-show-export="true"
+        data-show-button-icons="true" data-show-pagination-switch="true" data-show-toggle="true" data-toolbar="#toolbar"
+        data-click-to-select="true" data-single-select="true" data-checkbox-header="false">
         <thead class="thead-dark gray-dark">
           <tr>
-            <th data-sortable="true">Ref</th>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-sortable="true" data-field="ref">Ref</th>
             <th data-sortable="true">Container</th>
             <th data-sortable="true">Num BL</th>
             <th data-sortable="true">Importateur</th>
@@ -30,11 +73,11 @@
             <th data-sortable="true">Nombre colis</th>
             <th data-sortable="true">Poids</th>
             <th data-sortable="true">Plomb</th>
-            <th data-sortable="true">Depart</th>
-            <th data-sortable="true">Arrivee Tana</th>
+            <th data-sortable="false">Depart</th>
+            <th data-sortable="false">Arrivee Tana</th>
             <th data-sortable="true">Client</th>
-
-            <th>Option</th>
+            <th data-field="id">idOp</th>
+            <!-- <th>Option</th> -->
           </tr>
         </thead>
 
@@ -43,6 +86,7 @@
           {% for i in operations %}
           {% if not i.Prep_Full %}
           <tr class="w3-sand">
+            <td data-field="state" data-checkbox="true"></td>
             <td class="text-right">{{i.Reference_Reception}}</td>
 
             <td>{{i.Container}}</td>
@@ -54,8 +98,8 @@
             <td>{{i.Depart|localize}}</td>
             <td>{{i.Arrivee_Tana}}</td>
             <td>{{i.Client}}</td>
-
-            <td>
+            <td>{{i.id}}</td>
+            <!-- <td>
               <div class="dropdown">
                 <button type="button" name="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Action
@@ -69,11 +113,12 @@
                 </div>
               </div>
 
-            </td>
+            </td> -->
           </tr>
           {% else %}
 
           <tr>
+            <td data-field="state" data-checkbox="true"></td>
             <td class="text-right">{{i.Reference_Reception}}</td>
 
             <td>{{i.Container}}</td>
@@ -85,8 +130,9 @@
             <td>{{i.Depart}}</td>
             <td>{{i.Arrivee_Tana}}</td>
             <td>{{i.Client}}</td>
+            <td>{{i.id}}</td>
 
-            <td>
+            <!-- <td>
               <div class="dropdown">
                 <button type="button" name="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Action
@@ -100,7 +146,7 @@
                 </div>
               </div>
 
-            </td>
+            </td> -->
           </tr>
           {% endif %}
 
@@ -111,7 +157,24 @@
   </div>
 </div>
 
-{% endblock %}
+<div id="deleteConfirm" class="modal fade">
+  <div class="modal-dialog w3-card-4">
+    <div class="modal-content ">
+      <header class="modal-header w3-red">
+        <h2><i class="fas fa-exclamation-circle fa-fw w3-margin-right"></i>Confirmer</h2>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </header>
+      <div class="modal-body w3-pale-red w3-padding-24">
+        <p id="confDelete">Confirmer la suppression de l'enregistrement</p>
+      </div>
+      <div class="modal-footer justify-content-center w3-pale-red w3-border-0">
+        <button type="button" onclick="deleteOp()" class="btn btn-danger">Supprimer</button>
+        <button type="button" data-dismiss="modal" class="btn btn-secondary">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
 
 {% block js %}
 {% load static %}
@@ -129,30 +192,100 @@
 <!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
 {% include "base/modal.html" %}
 <script type="text/javascript">
-  $(function() {
-    $('#tableTest1').bootstrapTable({
-      height: $(window).height(),
-      onAll: function(name, args) {
-        fixleftwidth()
-      }
-    });
-
-    function fixleftwidth() {
-      setTimeout(function() {
-        var fixColumnTds = $(".fixed-table-body-columns tr:first-child td");
-        var fixNum = fixColumnTds.length;
-        var tableBody = $(".fixed-table-body tbody tr:first-child td");
-        for (var i = 0; i < fixNum; i++) {
-          fixColumnTds.eq(i).width(tableBody.eq(i).width())
-        }
-      }, 0)
-    }
-    fixleftwidth()
-    $(window).resize(function() {
-      $('#tableTest1').bootstrapTable('resetView');
-      fixleftwidth()
-    });
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fa-cogs fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#operationMenu").addClass("active");
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
   });
 </script>
+<script>
+  var $table = $('#tableTest1')
+  var $btnReception = $('#btnReception')
+  var selections = []
+  $(document).ready(() => $table.bootstrapTable('hideColumn', 'id'))
+  $(document).change(() => {
+    let check = $("#btnPreparation").attr("disabled");
+    console.log(`check = ${check}`)
+    if (check == "disabled") {
+      document.querySelectorAll('[disabled="disabled"]').forEach(() => {
+        console.log(this.style.color);
+      })
+    }
+  })
 
-{% endblock %}
+  function getIdSelections() {
+    return $.map($table.bootstrapTable('getSelections'), function (row) {
+      console.log("row.id = " + row.id)
+      return row.id
+    })
+  }
+
+  function getRefSelections() {
+    return $.map($table.bootstrapTable('getSelections'), function (row) {
+      console.log("row.id = " + row.ref)
+      return row.ref
+    })
+  }
+  $table.on('check.bs.table uncheck.bs.table ' +
+    'check-all.bs.table uncheck-all.bs.table',
+    function () {
+      $btnReception.prop('disabled', !$table.bootstrapTable('getSelections').length)
+      $("#btnPreparation").prop('disabled', !$table.bootstrapTable('getSelections').length)
+      $("#btnDedouanement").prop('disabled', !$table.bootstrapTable('getSelections').length)
+      $("#btnDelete").prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+      // save your data, here just save the current page
+      selections = getIdSelections()
+      // push or splice the selections if you want to save all data selections
+
+    })
+  $table.on('check.bs.table', function () {
+    $("#btnReception,#btnPreparation,#btnDedouanement,#btnDelete").removeClass("disabled")
+  })
+  $table.on('uncheck.bs.table', function () {
+    $("#btnReception,#btnPreparation,#btnDedouanement,#btnDelete").addClass("disabled")
+  })
+  $btnReception.click(function () {
+    let ids = getIdSelections()
+    console.log(ids)
+    let url = "{% url 'editReception' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  })
+  $("#btnPreparation").click(function () {
+    let ids = getIdSelections()
+    console.log(ids)
+    let url = "{% url 'editPreparation' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  })
+  $("#btnDedouanement").click(function () {
+    let ids = getIdSelections()
+    console.log(ids)
+    let url = "{% url 'editDedouannement' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  })
+  $("#btnDelete").click(function () {
+    const myNode = document.getElementById("confDelete");
+    while (myNode.firstChild) {
+      myNode.removeChild(myNode.lastChild)
+    }
+    refs = getRefSelections();
+    p = document.createElement("span");
+    p.innerHTML = `Voulez-vous supprimer de l'enregistrement ${refs}?`;
+    document.getElementById("confDelete").appendChild(p);
+    $('#deleteConfirm').modal();
+
+  })
+
+  function deleteOp() {
+    let ids = getIdSelections()
+    console.log(ids)
+    let url = "{% url 'deleteOperation' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  }
+  $(document).ready(() => {
+    if (window.innerWidth < 1200) {
+      $("#newRec, #edReception, #edPreparation, #edDedouannement, #edSupprimer").remove()
+    }
+  })
+</script>
+{% endblock js %}

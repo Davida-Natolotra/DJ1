@@ -1,14 +1,15 @@
 {% extends 'base/blankbone.html'%}
+{% load auth_extras %}
 {% block sidebar %}
-{% if request.user.is_staff %}
-{% include 'base/sidebar.html' %}
-{% endif %}
-{% endblock sidebar %}
 
+{% include 'base/sidebar.html' %}
+
+{% endblock sidebar %}
 {% block topbar %}
 {% include 'base/topbar.html' %}
 {% endblock topbar %}
 {% block content %}
+<div class="container-fluid pre-scrollable" style="max-height:70vh" id="wrapContent">
 {% load static %}
 {% load l10n %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
@@ -169,7 +170,7 @@
         data-pagination="true" data-sortable="true" data-sort-name='ID_Moto' data-sort-order='asc'
         data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true"
         data-toolbar="#toolbar">
-        <thead class="thead-light">
+        <thead class="bg-primary text-white">
           <tr>
             <th data-sortable="true" data-field="ID_Moto">Ref</th>
             <th data-sortable="false">Date d’entrée</th>
@@ -322,7 +323,8 @@
   </div>
 </div>
 
-{% endblock %}
+</div>
+{% endblock content %}
 
 {% block js %}
 {% load static %}
@@ -755,5 +757,25 @@
       },
     });
   }
+$(document).ready(()=>{
+  if (window.innerWidth > 1366){
+    document.querySelector("#wrapContent").style.maxHeight = "80vh";
+    console.log("resolution up");
+  }
+  else {
+    document.querySelector("#wrapContent").style.maxHeight = "70vh";
+    console.log("resolution down");
+  }
+})
+$(window).resize(function(){
+      if (window.innerWidth > 1366){
+    document.querySelector("#wrapContent").style.maxHeight = "80vh";
+    console.log("resized up");
+  }
+  else {
+    document.querySelector("#wrapContent").style.maxHeight = "70vh";
+    console.log("resized down");
+  }
+  })
 </script>
 {% endblock js %}

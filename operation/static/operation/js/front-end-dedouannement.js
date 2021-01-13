@@ -24,6 +24,7 @@ function toggle(){
       $(this).parents(".card").find(".bbody").slideToggle("normal");
       $(this).find("i").toggleClass("fas fa-chevron-down fas fa-chevron-right");
       $(this).parents(".card").find(".pint").find("i").toggleClass("fas fa-caret-down fas fa-caret-right");
+      $("#btnToggle").toggleClass("fas fa-toggle-on fas fa-toggle-off");
     })
 }
 function toggleInternal(x){

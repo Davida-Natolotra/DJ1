@@ -1,13 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from moto.models import Moto
-from moto.form import MotoForm, MotoFormCom
-from django.core.files.storage import FileSystemStorage
-from django.shortcuts import redirect
-from django.contrib import messages
-from myapp.views import detail
-from django.http.response import JsonResponse, HttpResponseRedirect
-from facture.models import BLMoto, FactureMoto
 import datetime
+
+from django.contrib import messages
+from django.http.response import JsonResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.shortcuts import render, get_object_or_404
+
+from facture.models import BLMoto, FactureMoto
+from moto.form import MotoForm
+from moto.models import Moto
 
 
 # Create your views here.
@@ -19,9 +19,14 @@ def index(request):
     pageTitle = "Moto"
     lastFacture = FactureMoto.objects.last().Num_Facture
     lastBL = BLMoto.objects.last().Num_BL
-    return render(request, 'moto/index.html',
-                  {'motos': motos, 'count': count, 'pageTitle': pageTitle, 'lastID': lastID, 'lastFacture': lastFacture,
-                   'lastBL': lastBL})
+    context = {
+        'motos': motos, 
+        'count': count, 
+        'pageTitle': pageTitle, 
+        'lastID': lastID, 
+        'lastFacture': lastFacture,
+        'lastBL': lastBL}
+    return render(request, 'moto/index.html',context)
 
 
 def createMoto(request):
@@ -33,7 +38,7 @@ def createMoto(request):
             messages.success(request, 'create')
             lastmoto = Moto.objects.last()
             print("pk = ", lastmoto.pk)
-            return redirect('editMoto', pk=lastmoto.pk)
+            redirect('editMoto', pk=lastmoto.pk)
         else:
             messages.error(request, 'error')
     else:
@@ -44,9 +49,9 @@ def createMoto(request):
 
 def archiveMoto(request):
     if request.is_ajax and request.method == 'GET':
-        id = request.GET.get("id", None)
-        print("id = ", id)
-        moto = get_object_or_404(Moto, pk=id)
+        ids = request.GET.get("id", None)
+        print("id = ", ids)
+        moto = get_object_or_404(Moto, pk=ids)
         print("moto = ", moto)
         moto.archive = True
         moto.save()
@@ -60,11 +65,11 @@ def archiveMoto(request):
 
 
 def editMoto(request, pk=None):
-    print("Edit moto")
     moto = get_object_or_404(Moto, pk=pk)
-    id = moto.ID_Moto
+    ids = moto.ID_Moto
+    print(f"Edit moto {ids}")
     pk = moto.pk
-    pageTitle = "Moto n°" + str(id)
+    pageTitle = "Moto n°" + str(ids)
     if request.method == 'POST':
         form = MotoForm(request.POST, request.FILES, instance=moto)
 
@@ -75,19 +80,27 @@ def editMoto(request, pk=None):
             messages.error(request, 'error')
     else:
         form = MotoForm(instance=moto)
-
-    return render(request, 'moto/edit.html', {'form': form, 'pageTitle': pageTitle, 'id': id, 'pk': pk})
+    context = {
+        'form': form,
+        'pageTitle': pageTitle,
+        'id': ids,
+        'pk': pk}
+    return render(request, 'moto/edit.html', context)
 
 
 def detailsMoto(request, pk=None):
     print("Edit moto")
     moto = get_object_or_404(Moto, pk=pk)
-    id = moto.ID_Moto
+    ids = moto.ID_Moto
     pageTitle = "Moto n°" + str(id)
 
     form = MotoForm(instance=moto)
-
-    return render(request, 'moto/detail.html', {'form': form, 'pageTitle': pageTitle})
+    context = {
+        'form': form,
+        'pageTitle': pageTitle,
+        'id': ids
+    }
+    return render(request, 'moto/detail.html', context)
 
 
 def deleteMoto(request, pk=None):
@@ -101,6 +114,7 @@ def deleteMoto(request, pk=None):
 
 
 def chart(request):
+    datemax = 1
     if request.is_ajax and request.method == 'GET':
         chart2 = request.GET.get("chart2", None)
         # print (chart2)

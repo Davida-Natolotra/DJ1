@@ -2,30 +2,46 @@
 
 {% block content %}
 {% load humanize %}
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation n°{{id}}</h1>
-<hr>
-<h2 class="text-center">Reception</h2>
-<form action="" method="post" enctype="multipart/form-data">
+
+<div class="row justify-content-center align-bottom">
+  <div class="col-md-10 col-lg-6">
+    <ul class="nav nav-tabs w3-border-0">
+      <li class="w3-margin-right">
+        <h4 class="w3-bottombar w3-border-light-green w3-text-light-green"><span>Réception</span></h4>
+      </li>
+      <li class="w3-margin-right" style="cursor: pointer;" id="linkPreparation">
+        <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-purple w3-hover-border-purple">
+          Préparation</h4>
+      </li>
+      <li class="w3-margin-right" style="cursor: pointer;" id="linkDedouannement">
+        <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-pink w3-hover-border-pink">
+          Dédouannement</h4>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<form id="myform" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:67vh">
+    <div class="col-md-10 col-lg-6 pre-scrollable text-gray-800" style="max-height: 60vh;" id="contForm">
       {% load l10n %}
       {{ form|localize }}
     </div>
-    <hr class="mb-3">
-
   </div>
-  <div class="row justify-content-center">
-    <div class=""><br>
-      <a href="/operation/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
-
-      <button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
-
-    </div>
-  </div>
+  <hr class="mb-3">
 </form>
+<div class="row justify-content-center">
+  <div class="w3-padding-16">
+    <a href="/operation/" class=" btn btn-primary"><i
+        class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
 
-{% endblock %}
+    <button class=" btn btn-success" type="submit" form="myform"><i class="fas fa-save w3-large w3-margin-right"></i>
+      Enregistrer</button>
+
+  </div>
+</div>
+{% endblock content %}
 {% block js %}
 {% include "base/modal.html" %}
 <script>
@@ -44,5 +60,28 @@
   document.getElementById("dateBL").setAttribute("max", today);
   document.getElementById("dateDepart").setAttribute("max", today);
   document.getElementById("dateReception").setAttribute("max", today);
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fa-cogs fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#operationMenu").addClass("active");
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+    if (window.innerWidth < 1200) {
+      $("h4").addClass("w3-medium");
+      document.getElementById("contForm").style.maxHeight = '50vh'
+    }
+  });
+  $("#linkPreparation").click(() => {
+    let ids = {{ref}}
+    console.log(ids)
+    let url = "{% url 'editPreparation' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  })
+  $("#linkDedouannement").click(() => {
+    let ids = {{ref}}
+    console.log(ids)
+    let url = "{% url 'editDedouannement' pk=123 %}"
+    document.location.href = url.replace('123', ids)
+  })
 </script>
 {% endblock js %}

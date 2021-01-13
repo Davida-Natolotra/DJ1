@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .decorators import unauthenticated_user
+
 # Create your views here.
 
 @unauthenticated_user
@@ -23,3 +24,4 @@ def logoutUser(request):
 
 def accounts(request):
     return render(request,'accounts/account.html')
+

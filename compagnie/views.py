@@ -3,10 +3,15 @@ from compagnie.models import Compagnie
 from django.http import HttpResponseRedirect
 from compagnie.form import CompagnieForm
 
+pageTitle = 'Compagnie'
 # Create your views here.
 def indexCompagnie(request):
     compagnies = Compagnie.objects.all()
-    return render(request,'compagnie/index.html',{'compagnies':compagnies})
+    context = {
+        'compagnies':compagnies,
+        'pageTitle': pageTitle,
+        }
+    return render(request,'compagnie/index.html',context)
 
 def createCompagnie(request):
     if request.method == 'POST':
@@ -16,7 +21,11 @@ def createCompagnie(request):
             return HttpResponseRedirect('/compagnie')
     else:
         form = CompagnieForm()
-    return render(request,'compagnie/edit.html',{'form':form})
+    context = {
+        'form':form,
+        'pageTitle':pageTitle
+        }
+    return render(request,'compagnie/edit.html',context)
 
 def editCompagnie(request,pk=None):
     compagnie = get_object_or_404(Compagnie, pk=pk)
@@ -27,7 +36,11 @@ def editCompagnie(request,pk=None):
 
     else:
         form = CompagnieForm(instance=compagnie)
-    return render(request,'compagnie/edit.html',{'form':form})
+    context = {
+        'form':form,
+        'pageTitle':pageTitle
+        }    
+    return render(request,'compagnie/edit.html',context)
 
 def deleteCompagnie(request,pk=None):
     compagnie = get_object_or_404(Compagnie,pk=pk)

@@ -16,13 +16,26 @@
     color: black !important
   }
 </style>
-<h2 class="text-center">BL Moto <span id="idOp">{{id}}</span> </h2>
-<hr>
-<form class="form-group" method="post" id="facture">
+<div class="row justify-content-center align-bottom">
+  <div class="col-md-10 col-lg-8">
+    <ul class="nav nav-tabs w3-border-0">
+      <li class="w3-margin-right" style="cursor: pointer;" id="linkEdition">
+        <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-border-green w3-hover-text-green">Edition</h4>
+      </li>
+      <li class="w3-margin-right" style="cursor: pointer;" id="linkFacture">
+        <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-cyan w3-hover-border-cyan">Facture</h4>
+      </li>
+      <li class="w3-margin-right" id="linkBL">
+        <h4 class="w3-bottombar w3-text-amber w3-border-amber">BL</h4>
+      </li>
+    </ul>
+  </div>
+</div>
+<form class="form-group" method="post" id="formBL">
   {% csrf_token %}
   {% localize off %}
   <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-10 pre-scrollable" style="max-height:55vh">
+    <div class="col-md-10 col-lg-8 pre-scrollable" style="max-height:55vh">
       <div class="invoice overflow-auto" id="myCanvas">
         <div style="min-width: 600px">
           <header>
@@ -128,10 +141,11 @@
       </div>
     </div>
     <br>
-    <hr class="mb-3">
-    <div class="row justify-content-center w3-margin">
-      {% block btnRedir %}{% endblock btnRedir %}
-    </div>
+
   </div>
   {% endlocalize %}
 </form>
+    <br class="mb-3">
+    <div class="row justify-content-center w3-margin">
+      {% block btnRedir %}{% endblock btnRedir %}
+    </div>

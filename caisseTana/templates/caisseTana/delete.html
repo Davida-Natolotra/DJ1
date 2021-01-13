@@ -25,4 +25,14 @@
 
     </div>
     <br><br>
+
 {% endblock content %}
+{% block js %}
+  <script>
+    $(document).ready(function () {
+    $("#pageTitle").addClass("fas fas fa-cash-register fa-fw w3-margin-right text-danger").parent().toggleClass("text-primary text-danger");
+    $("#caisseTanaMenu").addClass("active")
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-danger")
+  })
+  </script>
+{% endblock js %}

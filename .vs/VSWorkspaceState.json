@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\moto"
+    "\\base",
+    "\\base\\static",
+    "\\base\\static\\base",
+    "\\moto",
+    "\\moto\\templates",
+    "\\moto\\templates\\moto"
   ],
   "SelectedNode": "\\moto\\views.py",
   "PreviewInSolutionExplorer": false

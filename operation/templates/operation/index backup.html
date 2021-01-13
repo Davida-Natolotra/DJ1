@@ -1,0 +1,158 @@
+{% extends 'base/main.html'%}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
+<link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
+<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-cogs w3-xlarge w3-margin-right"></i>Operation</h1>
+<hr>
+
+<br>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold w3-text-red">Table de recapitulation</h6>
+  </div>
+  <div class="card-body">
+    <div id="toolbar">
+      <button class="btn btn-secondary" onclick="window.location.href='/operation/createReception'"><i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle enregistrement</button>
+
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
+        data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
+        <thead class="thead-dark gray-dark">
+          <tr>
+            <th data-sortable="true">Ref</th>
+            <th data-sortable="true">Container</th>
+            <th data-sortable="true">Num BL</th>
+            <th data-sortable="true">Importateur</th>
+            {# <th data-sortable="true">Compagnie</th> #}
+            <th data-sortable="true">Nombre colis</th>
+            <th data-sortable="true">Poids</th>
+            <th data-sortable="true">Plomb</th>
+            <th data-sortable="true">Depart</th>
+            <th data-sortable="true">Arrivee Tana</th>
+            <th data-sortable="true">Client</th>
+
+            <th>Option</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% load l10n %}
+          {% for i in operations %}
+          {% if not i.Prep_Full %}
+          <tr class="w3-sand">
+            <td class="text-right">{{i.Reference_Reception}}</td>
+
+            <td>{{i.Container}}</td>
+            <td>{{i.BL_Num}}</td>
+            <td>{{i.Importateur_Name}}</td>
+            <td>{{i.Nbre_Colis}}</td>
+            <td class="text-right">{{i.Poids}}</td>
+            <td>{{i.Plomb}}</td>
+            <td>{{i.Depart|localize}}</td>
+            <td>{{i.Arrivee_Tana}}</td>
+            <td>{{i.Client}}</td>
+
+            <td>
+              <div class="dropdown">
+                <button type="button" name="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Action
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a href="{% url 'editReception' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Reception</a>
+                  <a href="{% url 'editPreparation' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Preparation</a>
+                  <a href="{% url 'editDedouannement' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Dedouannement</a>
+                  <a href="{% url 'editFacture' id=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Facture</a>
+                  <a href="{% url 'deleteOperation' pk=i.pk %}" class="dropdown-item w3-hover-red"><i class="fas fa-trash w3-margin-right"></i>Supprimer</a>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+          {% else %}
+
+          <tr>
+            <td class="text-right">{{i.Reference_Reception}}</td>
+
+            <td>{{i.Container}}</td>
+            <td>{{i.BL_Num}}</td>
+            <td>{{i.Importateur_Name}}</td>
+            <td>{{i.Nbre_Colis}}</td>
+            <td class="text-right">{{i.Poids}}</td>
+            <td>{{i.Plomb}}</td>
+            <td>{{i.Depart}}</td>
+            <td>{{i.Arrivee_Tana}}</td>
+            <td>{{i.Client}}</td>
+
+            <td>
+              <div class="dropdown">
+                <button type="button" name="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Action
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a href="{% url 'editReception' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Reception</a>
+                  <a href="{% url 'editPreparation' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Preparation</a>
+                  <a href="{% url 'editDedouannement' pk=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Dedouannement</a>
+                  <a href="{% url 'editFacture' id=i.pk %}" class="dropdown-item w3-hover-green"><i class="fas fa-edit w3-margin-right"></i>Facture</a>
+                  <a href="{% url 'deleteOperation' pk=i.pk %}" class="dropdown-item w3-hover-red"><i class="fas fa-trash w3-margin-right"></i>Supprimer</a>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+          {% endif %}
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% load static %}
+<!-- Core plugin JavaScript-->
+<script src="{% static 'base/js/popper.min.js'%}"></script>
+<script src="{% static 'base/js/bootstrap-table.min.js'%}"></script>
+
+<!-- Custom script for this page -->
+<script src="{% static 'base/js/bootstrap-table-fixed-columns.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-export.min.js' %}"></script>
+<script src="{% static 'base/js/tableExport.min.js' %}"></script>
+<script src="{% static 'base/js/jspdf.min.js'%}"></script>
+<script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script> -->
+{% include "base/modal.html" %}
+<script type="text/javascript">
+  $(function() {
+    $('#tableTest1').bootstrapTable({
+      height: $(window).height(),
+      onAll: function(name, args) {
+        fixleftwidth()
+      }
+    });
+
+    function fixleftwidth() {
+      setTimeout(function() {
+        var fixColumnTds = $(".fixed-table-body-columns tr:first-child td");
+        var fixNum = fixColumnTds.length;
+        var tableBody = $(".fixed-table-body tbody tr:first-child td");
+        for (var i = 0; i < fixNum; i++) {
+          fixColumnTds.eq(i).width(tableBody.eq(i).width())
+        }
+      }, 0)
+    }
+    fixleftwidth()
+    $(window).resize(function() {
+      $('#tableTest1').bootstrapTable('resetView');
+      fixleftwidth()
+    });
+  });
+</script>
+
+{% endblock js %}

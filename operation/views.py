@@ -9,8 +9,9 @@ from operation.receptionForm import ReceptionForm
 from exportateur.models import Exportateur
 from importateur.models import Importateur
 from compagnie.models import Compagnie
+from django.contrib import messages
 
-pageTitle = "Operation"
+pageTitle = "Opération"
 # Create your views here.
 def indexOperation(request):
     operations = Operation.objects.all()
@@ -27,13 +28,14 @@ def createReception(request):
         form = ReceptionForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request,"create")
             return HttpResponseRedirect('/operation/')
     else:
         form = ReceptionForm()
     context = {
         'form':form,
         'id':id,
-        'pageTitle':"Operation"
+        'pageTitle':"Opération"
     }
     return render(request,'operation/editReception.html',context)
 
@@ -43,28 +45,37 @@ def editReception(request,pk=None):
         form = ReceptionForm(request.POST,request.FILES,instance=operation)
         if form.is_valid():
             form.save()
-
+            messages.success(request,"success")
+            
     else:
         form = ReceptionForm(instance=operation)
+    pageTitle = "Opération n°"+str(operation.Reference_Reception)
     context = {
         'form':form,
         'id':operation.Reference_Reception,
-        'pageTitle':pageTitle
+        'pageTitle':pageTitle,
+        'ref':pk
     }
     return render(request,'operation/editReception.html',context)
 
 def deleteOperation(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
-    if request.method == 'POST':
-        operation.delete()
-        return HttpResponseRedirect('/operation/')
-
-    return render(request,'operation/delete.html',{'operation':operation})
+    operation.delete()
+    messages.success(request, "delete")
+    return HttpResponseRedirect('/operation/')
 
 def editPreparation(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
+    pageTitle = "Opération n°"+str(operation.Reference_Reception)
+    context ={
+        'form':"bl",
+        'id':operation.Reference_Reception,
+        'pageTitle':pageTitle,
+        'ref':pk
+    }    
     if request.method == 'POST':
         form = preparationForm(request.POST,request.FILES,instance=operation)
+        context['form'] = form
         if form.is_valid():
             form.save()
             if operation.INCOTERM != '' and operation.Montant_Invoice != '' and operation.Invoice_Num != '' and operation.Nbre_Colis != '' and operation.Gross_Weight != '' and operation.Net_Weight != '' and operation.DE_Num != '' and operation.Fumigation_Num != '' and operation.Exportateur_Name != '' and operation.Importateur_Name != '' and operation.BSC_Depense != '' and operation.Dom_Num != '' and operation.Dom_Banque != '' and operation.Dom_Num_Compte != '' and operation.Dom_Depense != '' and operation.Date_OT != '' and operation.OT_Honoraire != '' :
@@ -73,9 +84,12 @@ def editPreparation(request,pk=None):
             else:
                 operation.Prep_Full = False
                 operation.save()
+            messages.success(request,"success")
+            return render(request,'operation/editPreparation.html',context)
     else:
         form = preparationForm(instance=operation)
-    return render(request,'operation/editPreparation.html',{'form':form,'id':operation.Reference_Reception})
+        context['form'] = form
+    return render(request,'operation/editPreparation.html',context)
 
 def editDedouannement(request,pk=None):
     operation = get_object_or_404(Operation,pk=pk)
@@ -83,10 +97,18 @@ def editDedouannement(request,pk=None):
         form = dedouannementForm(request.POST,request.FILES,instance=operation)
         if form.is_valid():
             form.save()
+            messages.success(request, "success")
 
     else:
         form = dedouannementForm(instance=operation)
-    return render(request,'operation/editDedouannement.html',{'form':form,'id':operation.Reference_Reception})
+    pageTitle = "Opération n°"+str(operation.Reference_Reception)
+    context = {
+        'form':form,
+        'id':operation.Reference_Reception,
+        'pageTitle':pageTitle,
+        'ref':pk
+        }
+    return render(request,'operation/editDedouannement.html',context)
 
 
 def ExportateurData(request):

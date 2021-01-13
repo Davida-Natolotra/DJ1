@@ -2,26 +2,24 @@
 
 {% block content %}
 {% load humanize %}
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-ship w3-xlarge w3-margin-right"></i>Exportateur</h1>
-<hr>
-<form action="" method="post" enctype="multipart/form-data">
+
+<form id="myForm" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-4 pre-scrollable" style="max-height:75vh">
+    <div class="col-md-8 col-lg-4 pre-scrollable text-gray-800" style="max-height:60vh">
       {{ form }}
     </div>
     <hr class="mb-3">
 
   </div>
-  <div class="row justify-content-center">
-    <div class=""><br>
-      <a href="/exportateur/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
-      <button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
-
-    </div>
-  </div>
 </form>
+<div class="row justify-content-center">
+  <div class=""><br>
+    <a href="/exportateur/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+    <button class=" btn btn-success" type="submit" form="myForm"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
 
+  </div>
+</div>
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content  w3-green">
@@ -61,4 +59,14 @@
   document.getElementById("dateEntree").setAttribute("max", today);
   document.getElementById("dateVente").setAttribute("max", today);
 </script>
-{% endblock %}
+
+{% endblock content %}
+{% block js %}
+<script>
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fas fa-ship fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#exportateurMenu").addClass("active")
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+  })
+</script>
+{% endblock js %}

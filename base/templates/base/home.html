@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
+{% load auth_extras %}
 <head>
 
   <meta charset="utf-8">
@@ -23,7 +23,8 @@
       background-image: url("{% static '/base/assets/BG_BW_Comp.jpg' %}");
       background-repeat: no-repeat;
       background-position: right bottom;
-      background-size:contain;}
+      background-size:contain;
+    }
   </style>
 
 </head>
@@ -54,8 +55,10 @@
 
 
           <div class="row">
+            {% if request.user|has_group:"MTZ" or request.user|has_group:"admin" %}
             <button class="btn w3-border-indigo w3-hover-indigo text-primary col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/moto'"><i class="fas fa-motorcycle w3-xxxlarge"></i><br>Moto</button>
-
+            {% endif %}
+            {% if request.user|has_group:"MTZ" or request.user|has_group:"admin" or request.user|has_group:"caisse" %}
             <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/caisseTana'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Caisse
               Tana</button>
 
@@ -63,6 +66,8 @@
               Tamatave</button>
 
             <button class="btn w3-border-red w3-hover-red text-danger col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/versement'"><i class="fas fa-cash-register w3-xxxlarge"></i><br>Versement</button>
+            {% endif %}
+            {% if request.user|has_group:"MTZ" or request.user|has_group:"admin" %}
 
             <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/importateur'"><i class="fas fa-ship w3-xxxlarge"></i><br>Importateur</button>
 
@@ -70,6 +75,7 @@
             <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/compagnie'"><i class="fas fa-building w3-xxxlarge"></i><br>Compagnie</button>
 
             <button class="btn w3-border-dark-gray w3-hover-dark-gray text-gray-800 col-md-2 w3-margin w3-padding-32" type="submit" onclick="window.location.href='/operation'"><i class="fas fa-cogs w3-xxxlarge"></i><br>Operation</button>
+          {% endif %}
           </div>
 
         </div>
@@ -79,7 +85,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+      <footer class="sticky-footer bg-white fixed-bottom">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Studio 41 - 2020</span>

@@ -7,12 +7,12 @@
 {% endblock topbar %}
 {% block content %}
 {% load humanize %}
-<h3 class="h3 mb-4 text-gray-800 text-center">{{subtitle}}</h3>
-<hr>
+<h3 class="h3 mb-4 text-danger text-center">{{subtitle}}</h3>
+<hr class="w3-border-red">
 <form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
   {% csrf_token %}
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-4 pre-scrollable" style="max-height:50vh">
+    <div class="col-md-8 col-lg-4 pre-scrollable text-gray-800" style="max-height:50vh">
       {{ form }}
     </div>
     <hr class="mb-3">

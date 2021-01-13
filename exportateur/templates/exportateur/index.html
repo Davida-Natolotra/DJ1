@@ -3,8 +3,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}">
 <link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}">
-<h1 class="h3 mb-4 text-gray-800"><i class="fas fa-ship w3-xlarge w3-margin-right"></i>Exportateur</h1>
-<hr>
 
 <br>
 <!-- DataTales Example -->
@@ -109,6 +107,11 @@
       fixleftwidth()
     });
   });
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fas fa-ship fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#exportateurMenu").addClass("active")
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+  })
 </script>
 
 {% endblock %}

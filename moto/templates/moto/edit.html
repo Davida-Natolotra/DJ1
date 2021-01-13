@@ -1,104 +1,161 @@
-{% extends 'base/blankbone.html'%}
-{% if request.user.is_staff %}
-  {% block sidebar %}
-  {% include "base/sidebar.html" %}
-  {% endblock sidebar %}
-{% endif %}
+{% extends 'base/blankbone.html' %}
+{% block sidebar %}
+{% include 'base/sidebar.html' %}
+{% endblock sidebar %}
 {% block topbar %}
-  {% include "base/topbar2.html" %}
+    {% include "base/topbar2.html" %}
 {% endblock topbar %}
 {% load static %}
 {% block content %}
-{% load humanize %}
-{% load l10n %}
-<h1 class="h3 mb-4 text-gray-800 text-center">Page d'édition</h1>
-<hr>
-<form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
-  {% csrf_token %}
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-8 pre-scrollable" style="max-height:55vh">
-      {% localize off %}
-      {{ form }}
-      {% endlocalize %}
+    {% load humanize %}
+    {% load l10n %}
+    <div class="row justify-content-center align-bottom">
+        <div class="col-md-10 col-lg-8">
+            <ul class="nav nav-tabs w3-border-0">
+                <li class="w3-margin-right">
+                    <h4 class="w3-bottombar w3-border-green w3-text-green"><span>Edition</span></h4>
+                </li>
+                <li class="w3-margin-right" style="cursor: pointer;" id="linkFacture">
+                    <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-cyan w3-hover-border-cyan">
+                        Facture</h4>
+                </li>
+                <li class="w3-margin-right" style="cursor: pointer;" id="linkBL">
+                    <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-amber w3-hover-border-amber">
+                        BL</h4>
+                </li>
+            </ul>
+        </div>
     </div>
-    <hr class="mb-3">
+    <form id="myForm" method="post" enctype="multipart/form-data" class="text-gray-800">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 pre-scrollable" style="max-height:55vh">
+                {% localize off %}
+                    {{ form }}
+                {% endlocalize %}
+            </div>
 
-  </div>
-  <div class="row justify-content-center text-center">
-    <div class="col-md-4 col-lg-8"><br>
-      <a href="/moto/" class=" btn btn-secondary"><i
-          class="fas fa-arrow-alt-circle-left fa-fw w3-large"></i> Retour</a>
-      <button class="btn btn-success" type="submit"><i class="fas fa-save fa-fw w3-large"></i> Enregistrer</button>
-      <a href="/moto/create" class="btn btn-primary"><i class="fas fa-plus-circle fa-fw"></i> Nouvelle
-        enregistrement</a>
-      <button class="btn w3-border-black w3-text-black w3-hover-gray" id="archive"><i class="fas fa-archive fa-fw"></i> Archiver</button>
+
+        </div>
+    </form>
+    <br class="mb-3">
+    <div class="row justify-content-center text-center">
+        <div class="col-md-4 col-lg-8"><br>
+            <a href="/moto/" class=" btn btn-secondary"><i
+                    class="fas fa-arrow-alt-circle-left fa-fw w3-large"></i> Retour</a>
+            <button class="btn btn-success" type="submit" form="myForm"><i class="fas fa-save fa-fw w3-large"></i>
+                Enregistrer
+            </button>
+            <a href="{% url 'createMoto' %}" class="btn btn-primary"><i class="fas fa-plus-circle fa-fw"></i> Nouvelle
+                enregistrement</a>
+            <button class="btn w3-border-black w3-text-black w3-hover-gray" id="btnArchive"><i
+                    class="fas fa-archive fa-fw"></i> Archiver
+            </button>
+        </div>
     </div>
-  </div>
-</form>
 
-
-
+    <div id="archiveConfirm" class="modal fade">
+        <div class="modal-dialog w3-card-4">
+            <div class="modal-content ">
+                <header class="modal-header w3-brown">
+                    <h2><i class="fas fa-archive fa-fw w3-margin-right"></i>Confirmer</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </header>
+                <div class="modal-body w3-sand w3-padding-24">
+                    <p id="confArchive">Confirmer l'archivage de l'enregistrement</p>
+                </div>
+                <div class="modal-footer justify-content-center w3-sand w3-border-0">
+                    <button type="button" id="archiver" class="btn w3-brown">Archiver</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 {% block js %}
-{% include "base/modal.html" %}
-<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
-<script>
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1; //January is 0!
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd
-  }
-  if (mm < 10) {
-    mm = '0' + mm
-  }
+    {% include "base/modal.html" %}
+    <script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
 
-  today = yyyy + '-' + mm + '-' + dd;
-  console.log("today = " + today);
-  document.getElementById("dateEntree").setAttribute("max", today);
-  document.getElementById("dateVente").setAttribute("max", today);
+        today = yyyy + '-' + mm + '-' + dd;
+        console.log("today = " + today);
+        document.getElementById("dateEntree").setAttribute("max", today);
+        document.getElementById("dateVente").setAttribute("max", today);
 
-  new Cleave('#id_PA', {
-    numeral: true,
-    numeralDecimalMark: '.',
-    delimiter: ' '
-  });
-  new Cleave('#id_PV', {
-    numeral: true,
-    numeralDecimalMark: '.',
-    delimiter: ' '
-  });
-  new Cleave('#id_montant_reparation', {
-    numeral: true,
-    numeralDecimalMark: '.',
-    delimiter: ' '
-  });
-</script>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#pageTitle").addClass("fas fa-motorcycle fa-fw w3-margin-right");
-    $("#motoMenu").addClass("active")
-  })
-</script>
-<script type="text/javascript">
-  $("#archive").click(function () {
-    var id = {{pk}};
-    $.ajax({
-      type: 'GET',
-      url: "{% url 'archiveMoto'%}",
-      data: {
-        "id": id,
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function (response) {
-        console.log("ARCHIVED " + response.archiveOK);
-        window.location.assign('{%url "detailsMoto" pk=pk %}')
-      },
-      error: function (response) {
-        console.log("ERROR" + response);
-      }
-    })
-  })
-</script>
+        new Cleave('#id_PA', {
+            numeral: true,
+            numeralDecimalMark: '.',
+            delimiter: ' '
+        });
+        new Cleave('#id_PV', {
+            numeral: true,
+            numeralDecimalMark: '.',
+            delimiter: ' '
+        });
+        new Cleave('#id_montant_reparation', {
+            numeral: true,
+            numeralDecimalMark: '.',
+            delimiter: ' '
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#pageTitle").addClass("fas fa-motorcycle fa-fw w3-margin-right");
+            $("#motoMenu").addClass("active")
+        })
+    </script>
+    <script type="text/javascript">
+        $("#archiver").click(function () {
+            var id = {{pk}};
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'archiveMoto'%}",
+                data: {
+                    "id": id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    console.log("ARCHIVED " + response.archiveOK);
+                    window.location.assign('{%url "detailsMoto" pk=pk %}')
+                },
+                error: function (response) {
+                    console.log("ERROR" + response);
+                }
+            })
+        })
+        $("#linkFacture").click(() => {
+            let ids = {{pk}}
+                console.log(ids)
+            let url = "{% url 'editFactureMoto' id=123 %}"
+            document.location.href = url.replace('123', ids)
+        })
+        $("#linkBL").click(() => {
+            let ids = {{pk}}
+                console.log(ids)
+            let url = "{% url 'editBLMoto' id=123 %}"
+            document.location.href = url.replace('123', ids)
+        })
+        $("#btnArchive").click(function () {
+            const myNode = document.getElementById("confArchive");
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.lastChild)
+            }
+            refs = {{id}};
+            p = document.createElement("span");
+            p.innerHTML = `Voulez-vous archiver de l'enregistrement ${refs}?`;
+            document.getElementById("confArchive").appendChild(p);
+            $('#archiveConfirm').modal();
+
+        })
+    </script>
 {% endblock js %}

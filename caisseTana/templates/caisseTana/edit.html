@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 {% load humanize %}
-<h1 class="h3 mb-4 text-gray-800 text-center">{{subtitle}}</h1>
-<hr>
+<h1 class="h3 mb-4 text-danger text-center">{{subtitle}}</h1>
+<hr class="w3-border-red">
 <form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
   {% csrf_token %}
   <div class="row justify-content-center">

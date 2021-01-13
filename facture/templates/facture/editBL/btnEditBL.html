@@ -1,7 +1,7 @@
 {% block btnRedir %}
 <div class="">
   <a href="{% url 'index' %}" class="btn btn-secondary"><i class="fas fa-chevron-left fa-fw"></i>Retour</a>
-  <button type="submit" name="button" class="btn btn-primary"><i class="fas fa-save fa-fw"></i> Enregistrer</button>
+  <button type="submit" name="button" class="btn btn-primary" form="formBL"><i class="fas fa-save fa-fw"></i> Enregistrer</button>
   <a href="{% url 'previewBLMoto' id=moto.id %}" class="btn btn-warning disabled" id='preview'><i class="fas fa-magic fa-fw"></i>Preview</a>
 </div>
 {% endblock btnRedir %}

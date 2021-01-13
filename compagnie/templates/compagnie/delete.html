@@ -28,3 +28,10 @@
 </div>
 <br><br>
 {% endblock content %}
+{% block js %}
+$(document).ready(function () {
+  $("#pageTitle").addClass("fas fas fa-building fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+  $("#compagnieMenu").addClass("active")
+  $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+})
+{% endblock js %}

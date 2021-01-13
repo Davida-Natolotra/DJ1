@@ -79,7 +79,7 @@
     <div class="table-responsive text-nowrap">
       <table class="table-striped table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true" data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true" data-pagination="true"
         data-sortable="true" data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true" data-toolbar="#toolbar">
-        <thead class="thead-dark gray-dark">
+        <thead class="text-white bg-danger">
           <tr>
             <th data-sortable="true">Libellee</th>
             <th data-sortable="true">Date</th>
@@ -97,9 +97,9 @@
             <td class="text-right">{{i.depense}}</td>
             <td class="text-right">{{i.recette}}</td>
             <td>
-              <a href="{% url 'editCaisseTana' pk=i.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Ed</a>
+              <a href="{% url 'editCaisseTana' pk=i.pk %}" class="btn btn-success"><i class="fas fa-edit w3-margin-right"></i>Editer</a>
 
-              <a href="{% url 'deleteCaisseTana' pk=i.pk %}" class="btn btn-danger"><i class="fas fa-remove w3-margin-right"></i>Sup</a>
+              <a href="{% url 'deleteCaisseTana' pk=i.pk %}" class="btn btn-danger"><i class="fas fa-trash w3-margin-right"></i>Supprimer</a>
             </td>
           </tr>
 
@@ -110,7 +110,23 @@
   </div>
 </div>
 {% endlocalize %}
-
+<div id="deleteConfirm" class="modal fade">
+  <div class="modal-dialog w3-card-4">
+    <div class="modal-content ">
+      <header class="modal-header w3-red">
+        <h2><i class="fas fa-exclamation-circle fa-fw w3-margin-right"></i>Confirmer</h2>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </header>
+      <div class="modal-body w3-pale-red w3-padding-24">
+        <p id = "confDelete">Confirmer la suppression de l'enregistrement</p>
+      </div>
+      <div class="modal-footer justify-content-center w3-pale-red w3-border-0">
+        <button type="button" onclick="deleteOp()" class="btn btn-danger">Supprimer</button>
+        <button type="button" data-dismiss="modal" class="btn btn-secondary">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
 
 {% block js %}

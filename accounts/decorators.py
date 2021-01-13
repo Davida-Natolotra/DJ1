@@ -32,9 +32,9 @@ def admin_only(view_func):
 			group = request.user.groups.all()[0].name
 
 		if group == 'commercial':
-			return redirect('homemotocom')
+			return redirect('index')
 
-		if group == 'admin':
+		if group == 'admin' or group =='caisse':
 			return view_func(request, *args, **kwargs)
 
 	return wrapper_function
