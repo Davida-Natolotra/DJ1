@@ -258,6 +258,6 @@ def chart(request):
             "datasemestre": list(datasemestre.values())
         })
 
-    elif request.method == 'POST':
+    else:
         test = "python test"
         return {'test': test}
